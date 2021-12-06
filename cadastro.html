@@ -4,15 +4,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Alphasite</title>
+  <title>Cadastro - Alphasite</title>
   <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
     <div id="formulario">
-        <h2>Login</h2>
+        <h2>Cadastro para acesso ao sistema</h2>
 
         <form>
-            <label for="authentication">Tipo de login: </label>
+            <label for="authentication">Tipo de usuário: </label>
             <select name="authentication">
                 <option value="cliente">Cliente</option>
                 <option value="adm">Administrador</option>
@@ -21,10 +21,16 @@
             <label for="email">Email: </label> <br>
             <input type="email" name="email" placeholder="Email" required="required"> <br>
 
-            <label for="senha">Senha: </label> <br>
+            <label for="nome">Nome completo: </label> <br>
+            <input type="text" name="nome" placeholder="Nome completo" required="required"> <br>
+
+            <label for="tel">Telefone ou celular </label> <br>
+            <input type="tel" name="telefone" placeholder="Telefone" required="required" minlenght="10" maxlength="12"> <br>
+
+            <label for="email">Senha: </label> <br>
             <input type="password" name="senha" placeholder="Senha" required="required"> <br>
 
-            <input type="submit" name="login" value="Login">
+            <input type="submit" name="cadastrar" value="Cadastrar usuário">
         </form>
     </div>
 </body>

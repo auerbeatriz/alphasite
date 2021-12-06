@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de coleção - Alphasite</title>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div id="formulario">
+        <h2>Cadastrar nova coleção</h2>
+
+        <form>
+            <label for="nome">Nome da coleção: </label> <br>
+            <input type="text" name="nome" placeholder="Nome da coleção" required="required"> <br>
+            
+            <label for="dataCriacao">Data de criação e lançamento: </label> <br>
+            <input type="date" name="dataCriacao" required="required"> <br>
+            
+            <!--Automatizar para exibir os alfaiates do site-->
+            <input type="checkbox" id="alfaiate1" name="alfaiate1" value="Beatriz">
+            <label for="alfaiate1">Beatriz </label> <br>
+
+            <input type="submit" name="cadastrarColecao" value="Cadastrar coleção">
+        </form>
+    </div>
+</body>
+</html>
