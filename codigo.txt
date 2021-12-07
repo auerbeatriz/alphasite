@@ -1,0 +1,12 @@
+                <input class="biginpy" type="text" name="name" required="required" placeholder="Nome completo"><br>
+                <input class="biginpy" type="email" name="mail" required="required" placeholder="Email"><br>
+                <input class="biginpy" type="text" name="clothe" required="required" placeholder="Peça desejada"><br>
+                <input type="text" name="altura" required="required" placeholder="Altura">
+                <input type="text" name="busto" required="required" placeholder="Busto">
+                <input type="text" name="cintura" required="required" placeholder="Cintura">
+                <input type="text" name="quadril" required="required" placeholder="Quadril"><br>
+                <input type="text" name="pernas" required="required" placeholder="Pernas">
+                <input type="text" name="braços" required="required" placeholder="Braços">
+                <input type="text" name="ombros" required="required" placeholder="Ombro">
+
+                <br><input class="btninpt" type="submit" value="Enviar pedido para o alfaiate">
