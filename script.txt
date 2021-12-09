@@ -1,0 +1,88 @@
+/* Lógico_1: */
+
+CREATE TABLE FORNECEDOR (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    razao_social varchar(255),
+    cnpj char(14),
+    cep char(8),
+    logradouro varchar(255),
+    numero int,
+    complemento varchar(255),
+    bairro varchar(255),
+    cidade varchar(255),
+    uf char(2),
+    email varchar(100),
+    telefone varchar(12)
+);
+
+CREATE TABLE PRODUTO (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(255),
+    preco_venda float,
+    foto text,
+    id_fornecedor int
+);
+
+CREATE TABLE CLIENTE (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(255),
+    email varchar(100),
+    telefone varchar(12),
+    cpf char(11),
+    cep char(8),
+    logradouro varchar(255),
+    numero int,
+    complemento varchar(255),
+    bairro varchar(255),
+    cidade varchar(255),
+    uf char(2)
+);
+
+CREATE TABLE VENDA(
+    numero_nota int AUTO_INCREMENT PRIMARY KEY,
+    data date,
+    id_cliente int
+);
+
+CREATE TABLE PRODUTOS_DA_VENDA (
+    id_produto int,
+    numero_nota int,
+    qtd float
+);
+
+CREATE TABLE CADERNETA (
+    id_cliente int,
+    id_produto int,
+    qtd float,
+    data date
+);
+ 
+ALTER TABLE PRODUTO ADD CONSTRAINT FK_PRODUTO_2
+    FOREIGN KEY (id_fornecedor)
+    REFERENCES FORNECEDOR (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE COMPRA ADD CONSTRAINT FK_COMPRA_2
+    FOREIGN KEY (id_cliente)
+    REFERENCES CLIENTE (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE PRODUTOS_DA_COMPRA ADD CONSTRAINT FK_PRODUTOS_DA_COMPRA_1
+    FOREIGN KEY (id_produto)
+    REFERENCES PRODUTO (id)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE PRODUTOS_DA_COMPRA ADD CONSTRAINT FK_PRODUTOS_DA_COMPRA_2
+    FOREIGN KEY (numero_nota)
+    REFERENCES COMPRA (numero_nota)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE CADERNETA ADD CONSTRAINT FK_CADERNETA_1
+    FOREIGN KEY (id_cliente)
+    REFERENCES CLIENTE (id)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE CADERNETA ADD CONSTRAINT FK_CADERNETA_2
+    FOREIGN KEY (id_produto)
+    REFERENCES PRODUTO (id)
+    ON DELETE SET NULL;
