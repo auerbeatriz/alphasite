@@ -25,5 +25,7 @@ session_start();
 
         <input type="submit" name="btn-login" value="Entrar">
     </form>
-</body>
-</html>
+
+<?php
+include_once("footer.php");
+?>

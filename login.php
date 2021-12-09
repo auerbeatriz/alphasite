@@ -9,13 +9,17 @@ if(isset($_POST["btn-login"])) {
     $post = new Post($con);
 
     $adm = mysqli_escape_string($con, $_POST["adm"]);
-    $senha = md5(mysqli_escape_string($con, $_POST["senha"]));
+    $senha = mysqli_escape_string($con, $_POST["senha"]);
 
-    if(!empty($adm) && !empty($senha)) {
+    if(!empty($adm) and !empty($senha)) {
         if($post->admExists($adm)) {
-            if($post->passwordIsCorrect($adm, $senha)) {
+            $result = $post->passwordIsCorrect($adm, md5($senha));
+            if(mysqli_num_rows($result) > 0) {
                 $_SESSION["logado"] = true;
-                $_SESSION["code"] = $adm; //o campo 'adm' é a chave primária da tabela
+                $_SESSION["id"] = mysqli_fetch_array($result)["id"];
+                $_SESSION["erros"] = null;
+
+                mysqli_close($con);
                 header("Location: home.php");
             }
             else {
@@ -23,7 +27,7 @@ if(isset($_POST["btn-login"])) {
             }
         }
         else {
-            array_push($erros, "<label>ADM não encontrado na base de dados</label><br>");
+            array_push($erros, "<label>Adm não encontrado na base de dados</label><br>");
         }
     }
     else {
@@ -32,6 +36,7 @@ if(isset($_POST["btn-login"])) {
 
     if(!empty($erros)) {
         $_SESSION["erros"] = $erros;
+        mysqli_close($con);
         header("Location: index.php");
     }   
     

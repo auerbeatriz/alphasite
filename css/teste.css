@@ -1,0 +1,40 @@
+.menu ul {
+    list-style: none;
+    background-color: #c9d485;
+    height: 40px;
+}
+
+.menu ul li {
+    display: inline;
+    position: relative;
+    color: white;
+}
+
+.menu ul li:hover {
+    background-color: #adbf46;
+    cursor: pointer;
+}
+.menu ul ul {
+    display: none;
+    left: 0;
+    position: absolute;
+    width: 150px;
+}
+.menu ul li:hover ul {
+    display: block;
+}
+.menu ul ul li{
+    display: block;
+}
+
+
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+  
+a:visited {
+    color: white;
+    text-decoration: none;
+}

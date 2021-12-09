@@ -1,24 +1,20 @@
 <?php
 
-include_once("header.php");
 require_once("config.php");
 require_once("post.php");
 
 session_start();
 
 $post = new Post($con);
+$nome = $post->getAdmName($_SESSION["id"]);
+
+require_once("headerA.php");
 ?>
 
-<!-- Aqui alteramos o titulo da página para o nome do usuário logado -->
-<script type="text/javascript">
-    document.title = "<?=$post->getAdmName($_SESSION["adm"]);?>"
-</script> 
+<h2> Vendas: R$0,00</h2>
+<h2> Caderneta: R$0,00</h2>
 
-<div id="cabeçalho">
-    <figure></figure>
-    <nav>
-
-    </nav>
-</div>
-</body>
-</html>
+<label><i>Uma frase inspiradora</i></label>
+<?php
+include_once("footer.php");
+?>
