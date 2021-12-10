@@ -13,15 +13,23 @@ require_once("headerA.php");
 
 ?>
 
-<form id="cad-produto" action="cadastro_produto.php" enctype="multipart/form-datas">
+<div id="erros">
+        <?=exibeErros($_SESSION["erros"])?>
+</div>
+
+<form id="cad-produto" action="cadastro_produto.php" enctype="multipart/form-data" method="POST">
+    <label for="nome"> Código de barras: </label>
+    <input type="text" name="codigo" required="required" placeholder="989893"> <br>
+
     <label for="nome"> Nome do produto: </label>
     <input type="text" name="nome" required="required" placeholder="Alface"> <br>
 
     <label for="preco"> Preço de venda: </label>
-    <input type="float" name="preco" required="required" placeholder="R$ 1,00"> <br>
+    <input type="number" step="0.01" name="preco" required="required" placeholder="R$ 1,00"> <br>
 
     <label for="fornecedor"> Fornecedor: </label>
-    <select name="fornecedor">
+    <select name="fornecedor" required="">
+        <option value="default">Produção própria</option>
         <?php listFornecedores($post); ?>
     </select><br>
 
