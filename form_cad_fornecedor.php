@@ -1,5 +1,4 @@
 <?php
-
 require_once("config.php");
 require_once("post.php");
 
@@ -11,7 +10,17 @@ $nome = $post->getAdmName($_SESSION["id"]);
 require_once("headerA.php");
 ?>
 
-<form id="cad-fornecedor" action="cadastro_fornedor.php">
+<div id="erros">
+        <?php
+        if(!empty($_SESSION["erros"])) {
+            foreach($_SESSION["erros"] as $erro) {
+                echo $erro;
+            }
+        }        
+        ?>
+</div>
+
+<form id="cad-fornecedor" action="cadastro_fornecedor.php" method="POST">
     <label for="razaoSocial"> Razão social: </label>
     <input type="text" name="razaoSocial" required="required" placeholder="Santos LTDA"> <br>
 
@@ -28,7 +37,7 @@ require_once("headerA.php");
     <input type="int" name="numero" required="required" placeholder="2286"> <br>
 
     <label for="complemento"> Complemento: </label>
-    <input type="text" name="complemento" required="" placeholder="Ap. 804"> <br>
+    <input type="text" name="complemento" placeholder="Ap. 804"> <br>
 
     <label for="bairro"> Bairro: </label>
     <input type="text" name="bairro" required="required" placeholder="Colina de Laranjeiras"> <br>

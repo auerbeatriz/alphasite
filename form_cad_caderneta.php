@@ -1,6 +1,7 @@
 <?php
 
 require_once("config.php");
+include_once("util.php");
 require_once("post.php");
 
 session_start();
@@ -18,12 +19,12 @@ require_once("headerA.php");
     <label><i>Só é possível criar um registro na caderneta para clientes cadastrados<i></label><br>
     <label for="cliente"> Cliente: </label>
     <select name="cliente" required="required">
-        <?php include_once("list_clientes.php"); ?>
+        <?php listClientes($post); ?>
     </select><br>
 
     <label for="produto">Produto: </label>
     <select name="produto" required="required">
-        <?php include_once("list_products.php"); ?>
+        <?php listProdutos($post); ?>
     </select>
 
     <label for="qtd">Quantidade:</label>

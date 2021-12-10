@@ -1,6 +1,6 @@
 <?php
-
 require_once("config.php");
+include_once("util.php");
 require_once("post.php");
 
 session_start();
@@ -18,13 +18,13 @@ require_once("headerA.php");
     <label for="cliente"> Cliente: </label>
     <select name="cliente">
         <option value="default">Não especificado</option>
-        <?php include_once("list_clientes.php"); ?>
+        <?php listClientes($post); ?>
     </select><br>
 
     <h3>Produtos</h3>
 
     <select name="produtos">
-        <?php include_once("list_products.php"); ?>
+        <?php listProdutos($post); ?>
     </select>
 
     <label for="qtd">Quantidade:</label>
