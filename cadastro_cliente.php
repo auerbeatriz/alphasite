@@ -30,6 +30,12 @@ if(isset($_POST["btn-cad-cli"])) {
     if(strlen($telefone) < 10) {
         $erros[] = "<label>O número de <b>telefone</b> informado não é válido.</label><br>";
     }
+    if (!empty($numero) && !filter_var($numero, FILTER_VALIDATE_INT)) {
+        $erros[] = "<label>O <b>número</b> de endereço informado não é válido.</label><br>";
+    }
+    if(!empty($cep) && (strlen($cep) != 8 || !filter_var($cep, FILTER_VALIDATE_INT))) {
+        $erros[] = "<label>O CEP informado não é válido.</label><br>";
+    }
 
     /*  validação do cnpj da empresa */
     if(!validaCpf($cpf)) {
