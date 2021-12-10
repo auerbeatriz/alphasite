@@ -1,5 +1,6 @@
 <?php
 require_once("config.php");
+include("util.php");
 require_once("post.php");
 
 session_start();
@@ -11,13 +12,7 @@ require_once("headerA.php");
 ?>
 
 <div id="erros">
-        <?php
-        if(!empty($_SESSION["erros"])) {
-            foreach($_SESSION["erros"] as $erro) {
-                echo $erro;
-            }
-        }        
-        ?>
+        <?=exibeErros($_SESSION["erros"])?>
 </div>
 
 <form id="cad-fornecedor" action="cadastro_fornecedor.php" method="POST">
