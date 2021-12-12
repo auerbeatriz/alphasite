@@ -40,5 +40,6 @@ require_once("headerA.php");
 </form>
 
 <?php
+mysqli_close($con);
 include_once("footer.php");
 ?>

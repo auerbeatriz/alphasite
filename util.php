@@ -15,10 +15,61 @@ function listClientes($post) {
 }
 
 function listProdutos($post) {
-    $result = $post->getProducts();
+    $result = $post->getProductsName();
     foreach ($result as $row) {
         echo "<option value=".$row['id'].">".$row['id']. " - " . utf8_encode($row["nome"])."</option>";
     }
+}
+
+function listFornecedorData($fornecedor) {
+    $razaoSocial = utf8_encode(strtoupper(filter_var($fornecedor["razao_social"], FILTER_SANITIZE_SPECIAL_CHARS)));
+    $logradouro = utf8_encode(filter_var($fornecedor["logradouro"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $complemento = utf8_encode(filter_var($fornecedor["complemento"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $bairro = utf8_encode(filter_var($fornecedor["bairro"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $cidade = utf8_encode(filter_var($fornecedor["cidade"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $uf = strtoupper(filter_var($fornecedor["uf"],FILTER_SANITIZE_SPECIAL_CHARS));
+
+    echo "<label><b>".$razaoSocial."</b></label><br>
+    <label>".$logradouro.", ".$fornecedor["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$fornecedor["cep"]."</label><br>
+    <label>CNPJ: ".$fornecedor["cnpj"]."<label><br>
+    <label>E-mail: ".utf8_encode($fornecedor["email"])."<label><br>
+    <label>Telefone: ".$fornecedor["telefone"]."<label><hr>";
+}
+
+function listClienteData($cliente) {
+    $nome = utf8_encode(strtoupper(filter_var($cliente["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
+    $logradouro = utf8_encode(filter_var($cliente["logradouro"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $complemento = utf8_encode(filter_var($cliente["complemento"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $bairro = utf8_encode(filter_var($cliente["bairro"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $cidade = utf8_encode(filter_var($cliente["cidade"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $uf = strtoupper(filter_var($cliente["uf"],FILTER_SANITIZE_SPECIAL_CHARS));
+
+    echo "<label><b>".$nome."</b></label><br>
+    <label>".$logradouro.", ".$cliente["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$cliente["cep"]."</label><br>
+    <label>CPF: ".$cliente["cpf"]."<label><br>
+    <label>E-mail: ".utf8_encode($cliente["email"])."<label><br>
+    <label>Telefone: ".$cliente["telefone"]."<label><hr>";
+}
+
+function listProdutoData($produto) {
+    $nome = utf8_encode(strtoupper(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
+    $fornecedor = utf8_encode(filter_var($produto["fornecedor"], FILTER_SANITIZE_SPECIAL_CHARS));
+
+    echo "<label><b>".$nome."</b></label><br>
+    <label>Fornecedor: ".$fornecedor."</label><br>
+    <label>Preço de venda: R$".$produto["preco_venda"]."<label>
+    <figure>
+        <img src='".$produto["foto"]."'>
+    </figure><hr>";
+}
+
+function listRegistrosCaderneta($registro) {
+    $cliente = utf8_encode(strtoupper(filter_var($registro["cliente"], FILTER_SANITIZE_SPECIAL_CHARS)));
+    $produto = utf8_encode(filter_var($registro["produto"], FILTER_SANITIZE_SPECIAL_CHARS));
+
+    echo "<label><b>".$cliente."</b></label><br>
+    <label>".$registro["qtd"]." ".$produto."</label><br>
+    <label>Total: R$".$registro["total"]."<label><hr>";
 }
 
 function limpaDocumento($documento) {
