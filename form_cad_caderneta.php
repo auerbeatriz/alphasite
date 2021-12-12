@@ -12,7 +12,7 @@ $nome = $post->getAdmName($_SESSION["id"]);
 require_once("headerA.php");
 ?>
 
-<form id="cad-caderneta" action="cadastro_caderneta.php">
+<form id="cad-caderneta" action="cadastro_caderneta.php" method="POST">
     <label for="data"> Data de ocorrência: </label>
     <input type="date" name="data" required="required"> <br>
 
@@ -28,9 +28,12 @@ require_once("headerA.php");
     </select>
 
     <label for="qtd">Quantidade:</label>
-    <input type="float" name="qtd" required="required" placeholder="1.00"><br>
+    <input type="number" step="0.01" name="qtd" required="required" placeholder="1.00"><br>
 
-    <input type="submit" name="btn-cad-venda" value="Cadastrar Registro">
+    <label for="obs">Observação: </label>
+    <input type="textarea" name="obs" placeholder="Obs."><br>
+
+    <input type="submit" name="btn-cad-cad" value="Cadastrar Registro">
 </form>
 
 <?php
