@@ -20,6 +20,10 @@ if(isset($_POST["btn-cad-produto"])) {
     if (!filter_var($codigo, FILTER_VALIDATE_INT)) {
         $erros[] = "<label>O código de barras informado não é válido.</label><br>";
     }
+    
+    if ($fornecedor <> 0 || !filter_var($fornecedor, FILTER_VALIDATE_INT)) {
+        $erros[] = "<label>Não foi possível localizar o fornecedor.</label><br>";
+    }
     if (!filter_var($preco, FILTER_VALIDATE_FLOAT)) {
         $erros[] = "<label>O preço informado informado não é válido.</label><br>";
     }
@@ -44,6 +48,10 @@ if(isset($_POST["btn-cad-produto"])) {
     }
     else {
         $erros[] = "<label>O arquivo de imagem não foi selecionado.</label><br>";
+    }
+    
+    if(empty($codigo) || empty($nome) || empty($preco) || empty($fornecedor)) {
+        $erros[] = "<label>Por favor, preencha todos os campos requeridos.</label><br>";
     }
 
     if(!empty($erros)) {

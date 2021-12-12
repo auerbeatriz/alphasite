@@ -29,7 +29,7 @@ require_once("headerA.php");
 
     <label for="fornecedor"> Fornecedor: </label>
     <select name="fornecedor" required="">
-        <option value="default">Produção própria</option>
+        <option value="0" selected="selected">Produção própria</option>
         <?php listFornecedores($post); ?>
     </select><br>
 

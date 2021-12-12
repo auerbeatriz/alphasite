@@ -14,45 +14,32 @@ if(isset($_POST["btn-cad-cad"])) {
     $cliente = $_POST["cliente"]; //id
     $produto = $POST["produto"]; //id
     $qtd = filter_input(INPUT_POST, "qtd", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $obs = filter_input(INPUT_POST, "obs", FILTER_SANITIZE_SPECIAL_CHARS);
     
 
     /* validação dos campos do formulário */
-    if (!filter_var($codigo, FILTER_VALIDATE_INT)) {
-        $erros[] = "<label>O código de barras informado não é válido.</label><br>";
+    if (!filter_var($qtd, FILTER_VALIDATE_FLOAT)) {
+        $erros[] = "<label>A quantidade informada não é válida.</label><br>";
     }
-    if (!filter_var($preco, FILTER_VALIDATE_FLOAT)) {
-        $erros[] = "<label>O preço informado informado não é válido.</label><br>";
+    if (!filter_var($cliente, FILTER_VALIDATE_INT)) {
+        $erros[] = "<label>Não foi possível localizar o cliente informado.</label><br>";
+    }
+    if (!filter_var($produto, FILTER_VALIDATE_INT)) {
+        $erros[] = "<label>Não foi possível localizar o produto informado.</label><br>";
     }
 
-    /* upload do arquivo */
-    if(isset($_FILES["foto"])) {
-        $formatosPermitidos = array("png", "jpeg", "jpg");
-        $ext = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
-
-        if(in_array($ext, $formatosPermitidos)) {
-            $path = "arquivos/";
-            $tmp = $_FILES["foto"]["tmp_name"];
-            $name = uniqid().".$ext";
-
-            if(!move_uploaded_file($tmp, $path.$name)) {
-                $erros[] = "<label>Não foi possível realizar o upload da imagem.</label><br>";
-            }
-        }
-        else {
-            $erros[] = "<label>O formato do arquivo não é permitido. Escolha apenas arquivos do tipo png, jpg ou jpeg.</label><br>";
-        }
-    }
-    else {
-        $erros[] = "<label>O arquivo de imagem não foi selecionado.</label><br>";
+    if(empty($data) || empty($cliente) || empty($produto) || empty($qtd)) {
+        $erros[] = "<label>Por favor, preencha todos os campos requeridos.</label><br>";
     }
 
     if(!empty($erros)) {
         $_SESSION["erros"] = $erros;
         mysqli_close($con);
-        header("Location: form_cad_produto.php");
+        header("Location: form_cad_caderneta.php");
     }
     else {
-        //  TODO: cadastro da empresa
+        //  TODO: cadastro do registro de caderneta
+        $_SESSION["success"] = 1;
         header("Location: home.php");
     }
 }

@@ -47,10 +47,6 @@ if(isset($_POST["btn-cad-cli"])) {
         $erros[] = "<label>Por favor, preencha todos os dados solicitados.</label><br>";
     }
     
-    foreach($erros as $erro) {
-        echo $erro."<br>";
-    }
-    
     if(!empty($erros)) {
         $_SESSION["erros"] = $erros;
         mysqli_close($con);

@@ -17,9 +17,12 @@ require_once("headerA.php");
 
     <label for="cliente"> Cliente: </label>
     <select name="cliente">
-        <option value="default">Não especificado</option>
+        <option value="nan" selected="selected">Não especificado</option>
         <?php listClientes($post); ?>
     </select><br>
+
+    <label for="obs"> Observação: </label>
+    <input type="text" name="obs"> <br>
 
     <h3>Produtos</h3>
 
