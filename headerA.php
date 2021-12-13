@@ -5,32 +5,41 @@ if(isset($_REQUEST["pg"])) {
     $pg = $_REQUEST["pg"];
     switch ($pg):
         case "cadFor":
+            $_SESSION["erros"] = null;
             header("Location: form_cad_fornecedor.php");
         break;
         case "cadCli":
+            $_SESSION["erros"] = null;
             header("Location: form_cad_cliente.php");
         break;
         case "cadPro":
+            $_SESSION["erros"] = null;
             header("Location: form_cad_produto.php");
         break;
         case "cadVen":
+            $_SESSION["erros"] = null;
             header("Location: form_cad_venda.php");
         break;
         case "cadCad":
+            $_SESSION["erros"] = null;
             header("Location: form_cad_caderneta.php");
         break;
 
         case "conFor":
+            $_SESSION["erros"] = null;
             header("Location: consulta_fornecedor.php");
         break;
         case "conCli":
+            $_SESSION["erros"] = null;
             header("Location: consulta_cliente.php");
         break;
         case "conPro":
+            $_SESSION["erros"] = null;
             header("Location: consulta_produto.php");
         break;
 
         case "conCad":
+            $_SESSION["erros"] = null;
             header("Location: consulta_caderneta.php");
         break;
     endswitch;
@@ -42,7 +51,7 @@ if(isset($_REQUEST["pg"])) {
     <head>
         <meta charset ="utf-8">
         <title> Pomar Hortifruti </title>
-        <link href="css/estilo.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
         <!-- Aqui alteramos o titulo da página para o nome do usuário logado -->
         <script type="text/javascript">
             document.title = "<?=$nome?>"

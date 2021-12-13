@@ -33,13 +33,12 @@ if(isset($_POST["btn-cad-cad"])) {
     }
 
     if(!empty($erros)) {
-        $_SESSION["erros"] = $erros;
         mysqli_close($con);
+        $_SESSION["erros"] = $erros;
         header("Location: form_cad_caderneta.php");
     }
     else {
         //  TODO: cadastro do registro de caderneta
-        $_SESSION["success"] = 1;
         header("Location: home.php");
     }
 }

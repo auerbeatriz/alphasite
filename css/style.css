@@ -47,10 +47,17 @@ a:visited {
     text-decoration: none;
 }
 
+div.cesta {
+    float: left;
+    display: inline;
+    width: 74%;
+    margin-left: 0.5%;
+    
+}
 div.produtos {
     float: left;
     display: inline;
-    margin-left: 1%;
+    padding: 0.8%;
 }
 
 div.receipt {

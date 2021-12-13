@@ -55,8 +55,8 @@ if(isset($_POST["btn-cad-produto"])) {
     }
 
     if(!empty($erros)) {
-        $_SESSION["erros"] = $erros;
         mysqli_close($con);
+        $_SESSION["erros"] = $erros;
         header("Location: form_cad_produto.php");
     }
     else {

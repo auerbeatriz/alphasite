@@ -46,10 +46,10 @@ if(isset($_POST["btn-cad-cli"])) {
     if(empty($nome) || empty($email) || empty($telefone) || empty($cpf)) {
         $erros[] = "<label>Por favor, preencha todos os dados solicitados.</label><br>";
     }
-    
+
     if(!empty($erros)) {
-        $_SESSION["erros"] = $erros;
         mysqli_close($con);
+        $_SESSION["erros"] = $erros;
         header("Location: form_cad_cliente.php");
     }
     else {

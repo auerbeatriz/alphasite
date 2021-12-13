@@ -14,6 +14,7 @@ if(isset($_POST["btn-cad-venda"])) {
     $obs = filter_input(INPUT_POST, "obs", FILTER_SANITIZE_SPECIAL_CHARS);
     $data = $_POST["data"];
 
+    //  obtem o numero da nota que sera salva e o total da compra
     $numeroNota = (int) $post->getLastVenda() + 1;
     $total = 0;
     foreach($_SESSION["cesta"] as $key=>$value) {
@@ -44,16 +45,17 @@ if(isset($_POST["btn-cad-venda"])) {
         else {
             $erros[] = "<label>Não foi possível cadastrar a compra, pois faltam dados de alguns produtos selecionados.</label><br>";
         }
-    }
-
+    } 
+    
     /* redirecionamento */
     if(!empty($erros)) {
-        $_SESSION["erros"] = $erros;
         mysqli_close($con);
-        header("Location: test_form_cad_venda.php");
+        $_SESSION["erros"] = $erros;
+        header("Location: form_cad_venda.php");
     }
     else {
         //  TODO: cadastro da empresa
+        unset($_SESSION["cesta"]);
         header("Location: home.php");
     }
 }

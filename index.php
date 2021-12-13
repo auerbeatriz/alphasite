@@ -1,30 +1,31 @@
 <?php
-
 include_once("header.php");
+
 session_start();
 
+$_SESSION["logado"] = false;
 ?>
-    <h1>Login</h1>
 
-    <div id="erros">
-        <?php
-        if(!empty($_SESSION["erros"])) {
-            foreach($_SESSION["erros"] as $erro) {
-                echo $erro;
-            }
-        }        
-        ?>
+<h1>Login</h1>
+   <div id="erros">
+       <?php
+       if(!empty($_SESSION["erros"])) {
+           foreach($_SESSION["erros"] as $erro) {
+               echo $erro;
+           }
+       }        
+       ?>
     </div>
 
-    <form id="login" action="login.php" method="POST">
-        <label for="adm">Nome de adm: </label>
-        <input type="text" name="adm"> <br>
+<form id="login" action="login.php" method="POST">
+    <label for="adm">Nome de adm: </label>
+    <input type="text" name="adm"> <br>
 
-        <label for="senha">Senha: </label>
-        <input type="password" name="senha"> <br>
+    <label for="senha">Senha: </label>
+    <input type="password" name="senha"> <br>
 
-        <input type="submit" name="btn-login" value="Entrar">
-    </form>
+    <input type="submit" name="btn-login" value="Entrar">
+</form>
 
 <?php
 include_once("footer.php");

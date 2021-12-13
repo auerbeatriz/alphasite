@@ -5,16 +5,26 @@ require_once("post.php");
 
 session_start();
 
-$post = new Post($con);
-$nome = $post->getAdmName($_SESSION["id"]);
+/*  todo o código da página só será exibido caso ele esteja logado
+ * Se não estiver, ele será redirecionado para a página index.html, onde há o formulário de login
+ */
+if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
+    $post = new Post($con);
+    $nome = $post->getAdmName($_SESSION["id"]);
 
-require_once("headerA.php");
+    require_once("headerA.php");
 ?>
 
-<h2> Vendas: R$0,00</h2>
-<h2> Caderneta: R$0,00</h2>
+    <h2> Vendas: R$0,00</h2>
+    <h2> Caderneta: R$0,00</h2>
 
-<label><i>Uma frase inspiradora</i></label>
+    <label><i>Uma frase inspiradora</i></label>
+
 <?php
-include_once("footer.php");
+    include_once("footer.php");
+}
+else {
+    header("Location: index.php");
+}
+mysqli_close($con);
 ?>
