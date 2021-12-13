@@ -21,6 +21,13 @@ function listProdutos($post) {
     }
 }
 
+function listAdm($adm) {
+    echo "<tr>
+            <td>".$adm["nome"]."</td>
+            <td>".$adm["login"]."</td>
+        </tr>";
+}
+
 function listProdutosForVenda($produto) {
     $nome = utf8_encode(strtoupper(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
     $id = $produto["id"];
@@ -242,7 +249,7 @@ function validaCpf($cpf) {
 }
 
 function exibeErros($erros) {
-    if(!empty($erros)) {
+    if(!empty($erros) || !is_null($erros)) {
         foreach($erros as $erro) {
             echo $erro;
         }

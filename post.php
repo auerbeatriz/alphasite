@@ -44,6 +44,12 @@ class POST {
         return $result;
     }
 
+    public function getAdms() {
+        $query = "SELECT nome, login FROM administradores;";
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
+
     public function getFornecedores() {
         $query = "SELECT * FROM fornecedor";
         $result = mysqli_query($this->conn, $query);

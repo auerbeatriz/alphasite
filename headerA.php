@@ -42,6 +42,11 @@ if(isset($_REQUEST["pg"])) {
             $_SESSION["erros"] = null;
             header("Location: consulta_caderneta.php");
         break;
+
+        case "gerenciar":
+            $_SESSION["erros"] = null;
+            header("Location: gerenciar_adm.php");
+        break;
     endswitch;
 }
 
@@ -80,7 +85,7 @@ if(isset($_REQUEST["pg"])) {
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=cadCad"> caderneta </a></li>
                     </ul>
                 </li>
-                <li> gerenciar adms </li>
+                <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=gerenciar"> gerenciar adms </a></li>
                 <li><a href="close_session.php"> sair </a></li>
             </ul>
         </nav>
