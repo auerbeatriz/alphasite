@@ -10,8 +10,8 @@ class POST {
 
     public function admExists($adm) {
         $query = "SELECT login FROM administradores WHERE login = '" . $adm . "'";
-        $result = mysqli_query($this->conn, $query);
-        return mysqli_num_rows($result) > 0;
+        $result = mysqli_query($this->conn, $query) or die(mysqli_error($this->conn));
+        return (mysqli_num_rows($result) > 0);
     }
 
     public function passwordIsCorrect($adm, $password) {
@@ -69,6 +69,13 @@ class POST {
         INNER JOIN produto ON caderneta.id_produto = produto.id;";
         $result = mysqli_query($this->conn, $query);
         return $result;
+    }
+
+    public function getLastVenda() {
+        $query = "SELECT numero_nota FROM venda ORDER BY numero_nota DESC LIMIT 1";
+        $result = mysqli_query($this->conn, $query);
+        $result = mysqli_fetch_assoc($result);
+        return $result["numero_nota"];
     }
 }
 

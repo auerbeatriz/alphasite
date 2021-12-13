@@ -14,6 +14,7 @@ if(isset($_POST["btn-login"])) {
     if(!empty($adm) and !empty($senha)) {
         if($post->admExists($adm)) {
             $result = $post->passwordIsCorrect($adm, md5($senha));
+
             if(mysqli_num_rows($result) > 0) {
                 $_SESSION["logado"] = true;
                 $_SESSION["id"] = mysqli_fetch_array($result)["id"];
@@ -29,11 +30,13 @@ if(isset($_POST["btn-login"])) {
         else {
             array_push($erros, "<label>Adm não encontrado na base de dados</label><br>");
         }
+        
     }
     else {
         array_push($erros, "<label>Email ou senha não informados</label><br>");
     }
 
+    
     if(!empty($erros)) {
         $_SESSION["erros"] = $erros;
         mysqli_close($con);

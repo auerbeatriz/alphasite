@@ -21,6 +21,32 @@ function listProdutos($post) {
     }
 }
 
+function listProdutosForVenda($produto) {
+    $nome = utf8_encode(strtoupper(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
+    $id = $produto["id"];
+    $preco = $produto["preco_venda"];
+    $foto = $produto["foto"];
+
+    echo "<div class='produtos'>
+    <form action='".$_SERVER['PHP_SELF']."?id=$id' method='POST'>
+        <img src='$foto' height='250px'><br>
+        <label>$nome</label>
+        <label><b>R$ ".number_format($preco, 2)."</b></label><br>
+        <input type='hidden' name='nome' value='$nome'>
+        <input type='hidden' name='preco' value='$preco'>
+
+        <input name='qtd' type='number' value='1' min='0.05'step='0.01'>
+        <input type='submit' name='add' value='Adicionar'>
+    </form>
+    </div>";
+}
+
+function listCesta($cesta) {
+    foreach($cesta as $key=>$value) {
+        echo "<label>".$value["qtd"]." ".$value["nome"]." <b>".$value["total"]."</b><label><br>";
+    }
+}
+
 function listFornecedorData($fornecedor) {
     $razaoSocial = utf8_encode(strtoupper(filter_var($fornecedor["razao_social"], FILTER_SANITIZE_SPECIAL_CHARS)));
     $logradouro = utf8_encode(filter_var($fornecedor["logradouro"], FILTER_SANITIZE_SPECIAL_CHARS));

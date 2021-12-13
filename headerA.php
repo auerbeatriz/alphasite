@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 
 <?php
-$pg = $_REQUEST["pg"];
-switch ($pg):
-    case "cadFor":
-        header("Location: form_cad_fornecedor.php");
-    break;
-    case "cadCli":
-        header("Location: form_cad_cliente.php");
-    break;
-    case "cadPro":
-        header("Location: form_cad_produto.php");
-    break;
-    case "cadVen":
-        header("Location: form_cad_venda.php");
-    break;
-    case "cadCad":
-        header("Location: form_cad_caderneta.php");
-    break;
+if(isset($_REQUEST["pg"])) {
+    $pg = $_REQUEST["pg"];
+    switch ($pg):
+        case "cadFor":
+            header("Location: form_cad_fornecedor.php");
+        break;
+        case "cadCli":
+            header("Location: form_cad_cliente.php");
+        break;
+        case "cadPro":
+            header("Location: form_cad_produto.php");
+        break;
+        case "cadVen":
+            header("Location: form_cad_venda.php");
+        break;
+        case "cadCad":
+            header("Location: form_cad_caderneta.php");
+        break;
 
-    case "conFor":
-        header("Location: consulta_fornecedor.php");
-    break;
-    case "conCli":
-        header("Location: consulta_cliente.php");
-    break;
-    case "conPro":
-        header("Location: consulta_produto.php");
-    break;
+        case "conFor":
+            header("Location: consulta_fornecedor.php");
+        break;
+        case "conCli":
+            header("Location: consulta_cliente.php");
+        break;
+        case "conPro":
+            header("Location: consulta_produto.php");
+        break;
 
-    case "conCad":
-        header("Location: consulta_caderneta.php");
-    break;
-endswitch;
+        case "conCad":
+            header("Location: consulta_caderneta.php");
+        break;
+    endswitch;
+}
+
 ?>
 
   <html>
@@ -52,7 +55,7 @@ endswitch;
                 <li><a href="home.php"> home </li>
                 <li> consulta 
                     <ul>
-                        <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conFor"> fornecedores </a></li>
+                        <li><a href="consulta_fornecedor.php"> fornecedores </a></li>
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conCli"> clientes </a></li>
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conPro"> produtos </a></li>
                         <li> vendas </li>
