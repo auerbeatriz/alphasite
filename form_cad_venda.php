@@ -33,7 +33,7 @@ require_once("headerA.php");
     <label for="qtd">Quantidade:</label>
     <input type="float" name="qtd" required="required" placeholder="1.00">
 
-    <input type="button" value="Inserir produto"><br><br>
+    <a href="<?=$_SERVER['PHP_SELF']?>?insertProduct=yes"><input type="button" value="Inserir produto"></a><br><br>       
 
     <input type="submit" name="btn-cad-venda" value="Cadastrar Venda">
 </form>

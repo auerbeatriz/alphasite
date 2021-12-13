@@ -1,52 +1,10 @@
-<!DOCTYPE html>
-
-<?php
-$pg = $_REQUEST["pg"];
-switch ($pg):
-    case "cadFor":
-        header("Location: form_cad_fornecedor.php");
-    break;
-    case "cadCli":
-        header("Location: form_cad_cliente.php");
-    break;
-    case "cadPro":
-        header("Location: form_cad_produto.php");
-    break;
-    case "cadVen":
-        header("Location: form_cad_venda.php");
-    break;
-    case "cadCad":
-        header("Location: form_cad_caderneta.php");
-    break;
-
-    case "conFor":
-        header("Location: consulta_fornecedor.php");
-    break;
-    case "conCli":
-        header("Location: consulta_cliente.php");
-    break;
-    case "conPro":
-        header("Location: consulta_produto.php");
-    break;
-
-    case "conCad":
-        header("Location: consulta_caderneta.php");
-    break;
-endswitch;
-?>
-
-  <html>
+<html>
     <head>
         <meta charset ="utf-8">
-        <title> Pomar Hortifruti </title>
-        <link href="css/estilo.css" rel="stylesheet">
-        <!-- Aqui alteramos o titulo da página para o nome do usuário logado -->
-        <script type="text/javascript">
-            document.title = "<?=$nome?>"
-        </script> 
+        <title>Menu dropdown</title>
+        <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <figure></figure>
         <nav class="menu">
             <ul>
                 <li><a href="home.php"> home </li>
@@ -54,7 +12,7 @@ endswitch;
                     <ul>
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conFor"> fornecedores </a></li>
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conCli"> clientes </a></li>
-                        <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conPro"> produtos </a></li>
+                        <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conPro"> produtos <a></li>
                         <li> vendas </li>
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conCad"> caderneta </a></li>
                     </ul>
@@ -72,3 +30,13 @@ endswitch;
                 <li><a href="close_session.php"> sair </a></li>
             </ul>
         </nav>
+
+        <div>
+            <img src="arquivos/alface.jpg" height="150px"><br>
+            <label>ALFACE <b>R$1,00</b></label><br>
+            <input type="number" name="qtd" placeholder="quantidade">
+            <a id="venda" href="<?=$_SERVER['PHP_SELF']?>?"> Adicionar </a>
+
+        </div>
+    </body>
+</html>
