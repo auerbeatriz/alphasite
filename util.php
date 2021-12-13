@@ -55,11 +55,21 @@ function listFornecedorData($fornecedor) {
     $cidade = utf8_encode(filter_var($fornecedor["cidade"], FILTER_SANITIZE_SPECIAL_CHARS));
     $uf = strtoupper(filter_var($fornecedor["uf"],FILTER_SANITIZE_SPECIAL_CHARS));
 
-    echo "<label><b>".$razaoSocial."</b></label><br>
-    <label>".$logradouro.", ".$fornecedor["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$fornecedor["cep"]."</label><br>
-    <label>CNPJ: ".$fornecedor["cnpj"]."<label><br>
-    <label>E-mail: ".utf8_encode($fornecedor["email"])."<label><br>
-    <label>Telefone: ".$fornecedor["telefone"]."<label><hr>";
+    if(filter_var($fornecedor["numero"], FILTER_VALIDATE_INT)) {
+        echo "<label><b>".$razaoSocial."</b></label><br>
+        <label>".$logradouro.", ".$fornecedor["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$fornecedor["cep"]."</label><br>
+        <label>CNPJ: ".$fornecedor["cnpj"]."<label><br>
+        <label>E-mail: ".utf8_encode($fornecedor["email"])."<label><br>
+        <label>Telefone: ".$fornecedor["telefone"]."<label><hr>";
+    }
+    else {
+        echo "<label><b>".$razaoSocial."</b></label><br>
+        <label>".$logradouro.", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$fornecedor["cep"]."</label><br>
+        <label>CNPJ: ".$fornecedor["cnpj"]."<label><br>
+        <label>E-mail: ".utf8_encode($fornecedor["email"])."<label><br>
+        <label>Telefone: ".$fornecedor["telefone"]."<label><br>
+        <label><i>O número do endereço não é válido. Por questões de segurança, não será exibido.</i></label><hr>";
+    }    
 }
 
 function listClienteData($cliente) {
@@ -70,32 +80,60 @@ function listClienteData($cliente) {
     $cidade = utf8_encode(filter_var($cliente["cidade"], FILTER_SANITIZE_SPECIAL_CHARS));
     $uf = strtoupper(filter_var($cliente["uf"],FILTER_SANITIZE_SPECIAL_CHARS));
 
-    echo "<label><b>".$nome."</b></label><br>
-    <label>".$logradouro.", ".$cliente["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$cliente["cep"]."</label><br>
-    <label>CPF: ".$cliente["cpf"]."<label><br>
-    <label>E-mail: ".utf8_encode($cliente["email"])."<label><br>
-    <label>Telefone: ".$cliente["telefone"]."<label><hr>";
+    if(filter_var($cliente["numero"], FILTER_VALIDATE_INT)) {
+        echo "<label><b>".$nome."</b></label><br>
+        <label>".$logradouro.", ".$cliente["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$cliente["cep"]."</label><br>
+        <label>CPF: ".$cliente["cpf"]."<label><br>
+        <label>E-mail: ".utf8_encode($cliente["email"])."<label><br>
+        <label>Telefone: ".$cliente["telefone"]."<label><hr>";
+    }
+    else {
+        echo "<label><b>".$nome."</b></label><br>
+        <label>".$logradouro.", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$cliente["cep"]."</label><br>
+        <label>CPF: ".$cliente["cpf"]."<label><br>
+        <label>E-mail: ".utf8_encode($cliente["email"])."<label><br>
+        <label>Telefone: ".$cliente["telefone"]."<label><br>
+        <label><i>O número do endereço não é válido. Por questões de segurança, não será exibido.</i></label><hr>";
+    }    
 }
 
 function listProdutoData($produto) {
     $nome = utf8_encode(strtoupper(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
     $fornecedor = utf8_encode(filter_var($produto["fornecedor"], FILTER_SANITIZE_SPECIAL_CHARS));
 
-    echo "<label><b>".$nome."</b></label><br>
-    <label>Fornecedor: ".$fornecedor."</label><br>
-    <label>Preço de venda: R$".$produto["preco_venda"]."<label>
-    <figure>
-        <img src='".$produto["foto"]."'>
-    </figure><hr>";
+    if(filter_var($produto["preco_venda"], FILTER_VALIDATE_FLOAT)) {
+        echo "<label><b>".$nome."</b></label><br>
+        <label>Fornecedor: ".$fornecedor."</label><br>
+        <label>Preço de venda: R$".$produto["preco_venda"]."<label>
+        <figure>
+            <img src='".$produto["foto"]."'>
+        </figure><hr>";
+    }
+    else {
+        echo "<label><b>".$nome."</b></label><br>
+        <label>Fornecedor: ".$fornecedor."</label><br>
+        <figure>
+            <img src='".$produto["foto"]."'>
+        </figure><br>
+        <label><i>O preço do produto não é válido. Por questões de segurança, não será exibido.</i></label><hr>";
+    }  
 }
 
 function listRegistrosCaderneta($registro) {
     $cliente = utf8_encode(strtoupper(filter_var($registro["cliente"], FILTER_SANITIZE_SPECIAL_CHARS)));
     $produto = utf8_encode(filter_var($registro["produto"], FILTER_SANITIZE_SPECIAL_CHARS));
 
-    echo "<label><b>".$cliente."</b></label><br>
-    <label>".$registro["qtd"]." ".$produto."</label><br>
-    <label>Total: R$".$registro["total"]."<label><hr>";
+    if(filter_var($registro["qtd"], FILTER_VALIDATE_FLOAT)) {
+        echo "<label><b>".$cliente."</b></label><br>
+        <label>".$registro["qtd"]." ".$produto."</label><br>
+        <label>Total: R$".$registro["total"]."<label><hr>";
+    }
+    else {
+        echo "<label><b>".$cliente."</b></label><br>
+        <label>".$registro["qtd"]." ".$produto."</label><br>
+        <label>Total: R$".$registro["total"]."<label><br>
+        <label><i>A quantidade informada não é válida. Por questões de segurança, não será exibido.</i></label><hr>";
+    }  
 }
 
 function limpaDocumento($documento) {
