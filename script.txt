@@ -1,5 +1,12 @@
 /* Lógico_1: */
 
+CREATE TABLE ADMINISTRADORES (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(100),
+    login varchar(32),
+    senha varchar(32)
+);
+
 CREATE TABLE FORNECEDOR (
     id int AUTO_INCREMENT PRIMARY KEY,
     razao_social varchar(255),
@@ -17,6 +24,7 @@ CREATE TABLE FORNECEDOR (
 
 CREATE TABLE PRODUTO (
     id int AUTO_INCREMENT PRIMARY KEY,
+    codigo_barras varchar(10),
     nome varchar(255),
     preco_venda float,
     foto text,
@@ -41,7 +49,9 @@ CREATE TABLE CLIENTE (
 CREATE TABLE VENDA(
     numero_nota int AUTO_INCREMENT PRIMARY KEY,
     data date,
-    id_cliente int
+    id_cliente int,
+    total float,
+    obs text
 );
 
 CREATE TABLE PRODUTOS_DA_VENDA (
@@ -54,7 +64,9 @@ CREATE TABLE CADERNETA (
     id_cliente int,
     id_produto int,
     qtd float,
-    data date
+    data date,
+    total float,
+    obs text
 );
  
 ALTER TABLE PRODUTO ADD CONSTRAINT FK_PRODUTO_2
@@ -62,19 +74,19 @@ ALTER TABLE PRODUTO ADD CONSTRAINT FK_PRODUTO_2
     REFERENCES FORNECEDOR (id)
     ON DELETE CASCADE;
  
-ALTER TABLE COMPRA ADD CONSTRAINT FK_COMPRA_2
+ALTER TABLE VENDA ADD CONSTRAINT FK_VENDA_2
     FOREIGN KEY (id_cliente)
     REFERENCES CLIENTE (id)
     ON DELETE CASCADE;
  
-ALTER TABLE PRODUTOS_DA_COMPRA ADD CONSTRAINT FK_PRODUTOS_DA_COMPRA_1
+ALTER TABLE PRODUTOS_DA_VENDA ADD CONSTRAINT FK_PRODUTOS_DA_VENDA_1
     FOREIGN KEY (id_produto)
     REFERENCES PRODUTO (id)
     ON DELETE RESTRICT;
  
-ALTER TABLE PRODUTOS_DA_COMPRA ADD CONSTRAINT FK_PRODUTOS_DA_COMPRA_2
+ALTER TABLE PRODUTOS_DA_VENDA ADD CONSTRAINT FK_PRODUTOS_DA_VENDA_2
     FOREIGN KEY (numero_nota)
-    REFERENCES COMPRA (numero_nota)
+    REFERENCES VENDA (numero_nota)
     ON DELETE SET NULL;
  
 ALTER TABLE CADERNETA ADD CONSTRAINT FK_CADERNETA_1
@@ -86,3 +98,20 @@ ALTER TABLE CADERNETA ADD CONSTRAINT FK_CADERNETA_2
     FOREIGN KEY (id_produto)
     REFERENCES PRODUTO (id)
     ON DELETE SET NULL;
+
+INSERT INTO `administradores` (`id`, `nome`, `login`, `senha`) VALUES (NULL, 'Beatriz Auer Mariano', 'auerbeatriz', 'e10adc3949ba59abbe56e057f20f883e');
+
+INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Regina Márcia Monteiro', 'reginamarciamonteiro..reginamarciamonteiro@telefonica.com', '27998899482', '56261291705', '29177238', 'Rua Furnas', '131', NULL, 'Divinópolis', 'Serra', 'ES')
+INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Breno Marcos Galvão', 'brenomarcosgalvao..brenomarcosgalvao@triunfante.com.br', '27989898812', '02292230798', '29177168', 'Rua das Orquídeas', '285', NULL, 'Cascata', 'Serra', 'ES');
+INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Daniela Emilly Malu Nascimento', 'ddanielaemillymalunascimento@somma.net.br', '27999241167', '96986767757', '29179160', 'Rua Açariquara', '744', NULL, 'Centro da Serra', 'Serra', 'ES');
+INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Vera Elza Mendes', 'veraelzamendes..veraelzamendes@gmx.com.br', '27987755339', '52477593706', '29163349', 'Rua Mutum', '958', NULL, 'Novo Horizonte', 'Serra', 'ES');
+INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Vinicius Renan Dias', 'viniciusrenandias__viniciusrenandias@igly.com.br', '27991958270', '15080623748', '29169560', 'Rua Taquari Novo', '120', NULL, 'Eldorado', 'Serra', 'ES');
+
+INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`) VALUES (NULL, 'Fernando e Rafael Comercio de Bebidas ME', '39096637000169', '29709200', 'Rua Olívio Massariol', '210', NULL, 'Santa Mônica', 'Colatina', 'ES', 'fiscal@fernandoerafaelcomerciodebebidasme.com.br', '2738191558');
+INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`) VALUES (NULL, 'Laura e Marcelo Entregas Expressas Ltda', '82604455000180', '29903062', 'Avenida Quintino Bocaiúva', '847', NULL, 'Interlagos', 'Linhares', 'ES', 'comunicacoes@lauraemarceloentregasexpressasltda.com.br', '2726357148');
+INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`) VALUES (NULL, 'Simone e Bryan Pães e Doces Ltda', '31403473000163', '29179216', 'Rua Burarema', '900', 'Centro da Serra', NULL, 'Serra', 'ES', 'producao@simoneebryanpaesedocesltda.com.br', '2737760811');
+
+INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '0001', 'Pão doce com côco', '1', 'imagens/pao_doce.jpg', '3');
+INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '1001', 'Toddynho', '1.50', 'imagens/toddynho.jpg', '1');
+
+INSERT INTO `caderneta` (`id_cliente`, `id_produto`, `qtd`, `data`, `total`, `obs`) VALUES ('4', '1', '3', '2021-12-12', '3', 'PAGAMENTO EM 20/12');

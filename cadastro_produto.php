@@ -34,7 +34,7 @@ if(isset($_POST["btn-cad-produto"])) {
         $ext = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
 
         if(in_array($ext, $formatosPermitidos)) {
-            $path = "arquivos/";
+            $path = "imagens/";
             $tmp = $_FILES["foto"]["tmp_name"];
             $name = uniqid().".$ext";
 

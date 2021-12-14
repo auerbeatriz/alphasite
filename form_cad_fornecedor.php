@@ -16,7 +16,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
 ?>
 
     <div id="erros">
-            <?=exibeErros($_SESSION["erros"])?>
+        <?=exibeErros($_SESSION["erros"])?>
     </div>
 
     <form id="cad-fornecedor" action="cadastro_fornecedor.php" method="POST">

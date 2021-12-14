@@ -21,7 +21,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
 
     <form id="cad-produto" action="cadastro_produto.php" enctype="multipart/form-data" method="POST">
         <label for="nome"> Código de barras: </label>
-        <input type="text" name="codigo" required="required" placeholder="989893"> <br>
+        <input type="text" name="codigo" required="required"> <br>
 
         <label for="nome"> Nome do produto: </label>
         <input type="text" name="nome" required="required" placeholder="Alface"> <br>

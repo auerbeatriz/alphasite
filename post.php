@@ -63,14 +63,14 @@ class POST {
     }
 
     public function getProdutos() {
-        $query = "SELECT produto.id, produto.nome, produto.preco_venda, produto.foto, fornecedor.razao_social as fornecedor FROM produto
+        $query = "SELECT produto.id, produto.nome, produto.preco_venda, produto.foto, fornecedor.razao_social as fornecedor, codigo_barras FROM produto
                 INNER JOIN fornecedor ON produto.id_fornecedor = fornecedor.id";
         $result = mysqli_query($this->conn, $query);
         return $result;
     }
 
     public function getCaderneta() {
-        $query = "SELECT cliente.nome as cliente, produto.nome as produto, qtd, qtd*produto.preco_venda as total, data FROM caderneta
+        $query = "SELECT cliente.nome as cliente, produto.nome as produto, qtd, total, obs, data FROM caderneta
         INNER JOIN cliente ON caderneta.id_cliente = cliente.id
         INNER JOIN produto ON caderneta.id_produto = produto.id;";
         $result = mysqli_query($this->conn, $query);
