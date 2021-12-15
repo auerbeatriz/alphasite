@@ -37,7 +37,10 @@ if(isset($_REQUEST["pg"])) {
             $_SESSION["erros"] = null;
             header("Location: consulta_produto.php");
         break;
-
+        case "conVen":
+            $_SESSION["erros"] = null;
+            header("Location: consulta_venda.php");
+        break;
         case "conCad":
             $_SESSION["erros"] = null;
             header("Location: consulta_caderneta.php");
@@ -72,7 +75,7 @@ if(isset($_REQUEST["pg"])) {
                         <li><a href="consulta_fornecedor.php"> fornecedores </a></li>
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conCli"> clientes </a></li>
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conPro"> produtos </a></li>
-                        <li> vendas </li>
+                        <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conVen"> vendas </a></li>
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=conCad"> caderneta </a></li>
                     </ul>
                 </li>

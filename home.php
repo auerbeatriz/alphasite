@@ -13,14 +13,13 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
     $nome = $post->getAdmName($_SESSION["id"]);
 
     require_once("headerA.php");
-?>
 
-    <h2> Vendas: R$0,00</h2>
-    <h2> Caderneta: R$0,00</h2>
+    $vendas = $post->getValorTotalVendas();
+    $caderneta = $post->getValorTotalCaderneta();
 
-    <label><i>Uma frase inspiradora</i></label>
-
-<?php
+    echo "<h2> Vendas: R$ ".number_format($vendas, 2)."</h2>";
+    echo "<h2> Caderneta: R$ ".number_format($caderneta, 2)."</h2>";
+    
     include_once("footer.php");
 }
 else {

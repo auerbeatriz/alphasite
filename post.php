@@ -83,6 +83,36 @@ class POST {
         $result = mysqli_fetch_assoc($result);
         return $result["numero_nota"];
     }
+
+    public function getVendas() {
+        $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
+        INNER JOIN cliente on venda.id_cliente = cliente.id
+        ORDER BY data DESC;";
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
+
+    public function getProdutosVenda($numeroNota) {
+        $query = "SELECT produto.nome as produto, qtd FROM produtos_da_venda
+        INNER JOIN produto ON produtos_da_venda.id_produto  = produto.id
+        WHERE numero_nota = $numeroNota;";
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
+
+    public function getValorTotalVendas() {
+        $query = "SELECT sum(total) as total FROM venda;";
+        $result = mysqli_query($this->conn, $query);
+        $result = mysqli_fetch_assoc($result);
+        return $result["total"];
+    }
+
+    public function getValorTotalCaderneta() {
+        $query = "SELECT sum(total) as total FROM caderneta;";
+        $result = mysqli_query($this->conn, $query);
+        $result = mysqli_fetch_assoc($result);
+        return $result["total"];
+    }
 }
 
 ?>

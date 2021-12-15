@@ -14,12 +14,16 @@ if(isset($_POST["btn-cad-cad"])) {
     $cliente = $_POST["cliente"]; //id
     $produto = $POST["produto"]; //id
     $qtd = filter_input(INPUT_POST, "qtd", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $total = filter_input(INPUT_POST, "total", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $obs = filter_input(INPUT_POST, "obs", FILTER_SANITIZE_SPECIAL_CHARS);
     
 
     /* validação dos campos do formulário */
     if (!filter_var($qtd, FILTER_VALIDATE_FLOAT)) {
         $erros[] = "<label>A quantidade informada não é válida.</label><br>";
+    }
+    if (!filter_var($total, FILTER_VALIDATE_FLOAT)) {
+        $erros[] = "<label>O valor total informado não é válido.</label><br>";
     }
     if (!filter_var($cliente, FILTER_VALIDATE_INT)) {
         $erros[] = "<label>Não foi possível localizar o cliente informado.</label><br>";

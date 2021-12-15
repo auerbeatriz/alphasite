@@ -31,7 +31,10 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
         </select>
 
         <label for="qtd">Quantidade:</label>
-        <input type="number" step="0.01" name="qtd" required="required" placeholder="1.00"><br>
+        <input type="number" step="0.01" name="qtd" required="required"><br>
+
+        <label for="total">Valor total:</label>
+        <input type="number" step="0.01" name="total" required="required"><br>
 
         <label for="obs">Observação: </label>
         <input type="text" name="obs" placeholder="Obs."><br>
