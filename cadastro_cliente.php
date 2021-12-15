@@ -12,8 +12,8 @@ if(isset($_POST["btn-cad-cli"])) {
     /* sanitização dos campos do formulário */
     $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
-    $telefone = filter_input(INPUT_POST, "telefone", FILTER_SANITIZE_NUMBER_INT);
-    $cpf = filter_input(INPUT_POST, "cpf", FILTER_SANITIZE_NUMBER_INT);
+    $telefone = $_POST["telefone"];
+    $cpf = $_POST["cpf"];
     $cep = filter_input(INPUT_POST, "cep", FILTER_SANITIZE_NUMBER_INT);
     $logradouro = filter_input(INPUT_POST, "logradouro", FILTER_SANITIZE_SPECIAL_CHARS);
     $numero = filter_input(INPUT_POST, "numero", FILTER_SANITIZE_NUMBER_INT);
@@ -26,7 +26,7 @@ if(isset($_POST["btn-cad-cli"])) {
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erros[] = "<label>O e-mail informado não é válido.</label><br>";
     }
-    if(strlen($telefone) < 11) {
+    if(strlen($telefone) < 13) {
         $erros[] = "<label>O número de <b>telefone</b> informado não é válido.</label><br>";
     }
     if (!empty($numero) && !filter_var($numero, FILTER_VALIDATE_INT)) {

@@ -11,7 +11,7 @@ if(isset($_POST["btn-cad-forn"])) {
 
     /* sanitização dos campos do formulário */
     $razaoSocial = filter_input(INPUT_POST, "razaoSocial", FILTER_SANITIZE_SPECIAL_CHARS);
-    $cnpj = filter_input(INPUT_POST, "cnpj", FILTER_SANITIZE_NUMBER_INT);
+    $cnpj = $_POST["cnpj"];
     $cep = filter_input(INPUT_POST, "cep", FILTER_SANITIZE_NUMBER_INT);
     $logradouro = filter_input(INPUT_POST, "logradouro", FILTER_SANITIZE_SPECIAL_CHARS);
     $numero = filter_input(INPUT_POST, "numero", FILTER_SANITIZE_NUMBER_INT);
@@ -20,7 +20,7 @@ if(isset($_POST["btn-cad-forn"])) {
     $cidade = filter_input(INPUT_POST, "cidade", FILTER_SANITIZE_SPECIAL_CHARS);
     $uf = filter_input(INPUT_POST, "uf",FILTER_SANITIZE_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
-    $telefone = filter_input(INPUT_POST, "telefone", FILTER_SANITIZE_NUMBER_INT);
+    $telefone = $_POST["telefone"];
 
     /* validação dos campos do formulário */
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -32,7 +32,7 @@ if(isset($_POST["btn-cad-forn"])) {
     if(strlen($cep) != 9) {
         $erros[] = "<label>O CEP informado não é válido.</label><br>";
     }
-    if(strlen($telefone) < 11) {
+    if(strlen($telefone) < 13) {
         $erros[] = "<label>O número de <b>telefone</b> informado não é válido.</label><br>";
     }
 

@@ -44,7 +44,7 @@ function limpaDocumento($documento) {
    //Troca o espaço por nada
     $documento = str_replace(" ", "", $documento);
    //Troca a barra por nada
-    $documento = str_replace("-", "", $documento);
+    $documento = str_replace("/", "", $documento);
 
     return $documento;
 }
