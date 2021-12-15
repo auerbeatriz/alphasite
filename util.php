@@ -147,6 +147,30 @@ function exibeErros($erros) {
     }
 }
 
+function maskFunctions() {
+    echo " <!-- Máscara para os formulários -->
+    <script src='jquery-3.6.0.min.js'></script>
+    <script src='jquery.mask.js'></script>
+    <script type='text/javascript'>
+        $(document).ready(function(){
+            $('#cpf').mask('000.000.000-00', {reverse: true});
+            $('#cnpj').mask('00.000.000/0000-00', {reverse: true});
+            $('#cep').mask('00000-000');
+
+            var TelMaskBehavior = function (val) {
+                return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+            },
+            telOptions = {
+                onKeyPress: function(val, e, field, options) {
+                field.mask(TelMaskBehavior.apply({}, arguments), options);
+            }
+            };
+            $('#tel').mask(TelMaskBehavior, telOptions);
+        })
+    </script>
+    ";
+}
+
 function listProdutosForVenda($produto) {
     $nome = utf8_encode(strtoupper(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
     $id = $produto["id"];

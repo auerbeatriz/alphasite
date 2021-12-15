@@ -29,19 +29,19 @@ if(isset($_POST["btn-cad-forn"])) {
     if (!filter_var($numero, FILTER_VALIDATE_INT)) {
         $erros[] = "<label>O <b>número</b> de endereço informado não é válido.</label><br>";
     }
-    if(strlen($cep) != 8 || !filter_var($cep, FILTER_VALIDATE_INT)) {
+    if(strlen($cep) != 9) {
         $erros[] = "<label>O CEP informado não é válido.</label><br>";
     }
-    if(strlen($telefone) < 10) {
+    if(strlen($telefone) < 11) {
         $erros[] = "<label>O número de <b>telefone</b> informado não é válido.</label><br>";
     }
 
     /*  validação do cnpj da empresa */
-    if(!validaCnpj($cnpj)) {
+    if(!validaCnpj(limpaDocumento($cnpj))) {
         $erros[] = "<label>O CNPJ informado não é válido.</label><br>";
     }
 
-    if(empty($razaoSocial) || empty($email) || empty($telefone) || empty($cnpj) || empty($cep) || empty($logradouro) || empty($numero) || empty($complemento) || empty($bairro) || empty($cidade) || empty($uf)) {
+    if(empty($razaoSocial) || empty($email) || empty($telefone) || empty($cnpj) || empty($cep) || empty($logradouro) || empty($numero) || empty($bairro) || empty($cidade) || empty($uf)) {
         $erros[] = "<label>Por favor, preencha todos os dados solicitados.</label><br>";
     }
     
@@ -54,6 +54,7 @@ if(isset($_POST["btn-cad-forn"])) {
         //  TODO: cadastro da empresa
         header("Location: home.php");
     }
+    
 }
 
 ?>
