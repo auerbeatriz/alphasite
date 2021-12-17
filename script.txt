@@ -110,9 +110,13 @@ INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logrado
 INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`) VALUES (NULL, 'Fernando e Rafael Comercio de Bebidas ME', '39096637000169', '29709200', 'Rua Olívio Massariol', '210', NULL, 'Santa Mônica', 'Colatina', 'ES', 'fiscal@fernandoerafaelcomerciodebebidasme.com.br', '2738191558');
 INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`) VALUES (NULL, 'Laura e Marcelo Entregas Expressas Ltda', '82604455000180', '29903062', 'Avenida Quintino Bocaiúva', '847', NULL, 'Interlagos', 'Linhares', 'ES', 'comunicacoes@lauraemarceloentregasexpressasltda.com.br', '2726357148');
 INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`) VALUES (NULL, 'Simone e Bryan Pães e Doces Ltda', '31403473000163', '29179216', 'Rua Burarema', '900', 'Centro da Serra', NULL, 'Serra', 'ES', 'producao@simoneebryanpaesedocesltda.com.br', '2737760811');
+INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`) VALUES (NULL, 'Henry e Gabriela Alimentos Ltda', '76090377000140', '29903107', 'Rua Henrique de Coimbra', '885', NULL, 'Interlagos', 'Linhares', 'ES', 'compras@henryegabrielaalimentosltda.com.br', '2737466537');
 
 INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '0001', 'Pão doce com côco', '1', 'imagens/pao_doce.jpg', '3');
 INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '1001', 'Toddynho', '1.50', 'imagens/toddynho.jpg', '1');
+INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '2001', 'Cereja kg', '39.99', 'imagens/cereja.jpg', '4');
+INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '2002', 'Côco unidade', '4.99', 'imagens/coco.jpg', '4');
+INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '1002', 'Tartelete morango', '12', 'imagens/tartelete.jpg', '4');
 
 INSERT INTO `caderneta` (`id_cliente`, `id_produto`, `qtd`, `data`, `total`, `obs`) VALUES ('4', '1', '3', '2021-12-12', '3', 'PAGAMENTO EM 20/12');
 
