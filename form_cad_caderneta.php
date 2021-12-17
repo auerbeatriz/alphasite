@@ -13,6 +13,10 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
     require_once("headerA.php");
 ?>
 
+    <div id="erros">
+            <?=exibeErros()?>
+    </div>
+
     <form id="cad-caderneta" action="cadastro_caderneta.php" method="POST">
         <label for="data"> Data de ocorrência: </label>
         <input type="date" name="data" required="required"> <br>

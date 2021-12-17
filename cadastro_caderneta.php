@@ -43,7 +43,8 @@ if(isset($_POST["btn-cad-cad"])) {
     }
     else {
         //  TODO: cadastro do registro de caderneta
-        header("Location: home.php");
+        $_SESSION["success"] = 1;
+        header("Location: form_cad_caderneta.php");
     }
 }
 

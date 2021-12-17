@@ -139,11 +139,17 @@ function validaCpf($cpf) {
     }
 }
 
-function exibeErros($erros) {
-    if(!empty($erros) || !is_null($erros)) {
-        foreach($erros as $erro) {
+function exibeErros() {
+    if(!empty($_SESSION["erros"]) || !is_null($_SESSION["erros"])) {
+        foreach($_SESSION["erros"] as $erro) {
             echo $erro;
         }
+    }
+    if (!is_null($_SESSION["success"])) {
+        echo "<script type='text/javascript'>
+            alert('Cadastro realizado com sucesso!');
+            </script>";
+        $_SESSION["success"] = null;
     }
 }
 

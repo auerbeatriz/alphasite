@@ -56,7 +56,8 @@ if(isset($_POST["btn-cad-venda"])) {
     else {
         //  TODO: cadastro da empresa
         unset($_SESSION["cesta"]);
-        header("Location: home.php");
+        $_SESSION["success"] = 1;
+        header("Location: form_cad_venda.php");
     }
 }
 

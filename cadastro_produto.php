@@ -61,7 +61,8 @@ if(isset($_POST["btn-cad-produto"])) {
     }
     else {
         //  TODO: cadastro da empresa
-        header("Location: home.php");
+        $_SESSION["success"] = 1;
+        header("Location: form_cad_produto.php");
     }
 }
 

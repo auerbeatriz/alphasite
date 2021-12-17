@@ -52,7 +52,8 @@ if(isset($_POST["btn-cad-forn"])) {
     }
     else {
         //  TODO: cadastro da empresa
-        header("Location: home.php");
+        $_SESSION["success"] = 1;
+        header("Location: form_cad_fornecedor.php");
     }
     
 }

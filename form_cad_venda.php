@@ -77,7 +77,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
         </form> <br>
 
         <div id="erros">
-            <?php if(isset($_SESSION["erros"])) {exibeErros($_SESSION["erros"]);} ?>
+            <?php if(isset($_SESSION["erros"])) {exibeErros();} ?>
         </div><br>
     </div>
 

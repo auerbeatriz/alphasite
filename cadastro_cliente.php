@@ -53,7 +53,8 @@ if(isset($_POST["btn-cad-cli"])) {
     }
     else {
         //  TODO: cadastro do cliente
-        header("Location: home.php");
+        $_SESSION["success"] = 1;
+        header("Location: form_cad_cliente.php");
     }
 }
 
