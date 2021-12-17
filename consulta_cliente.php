@@ -14,7 +14,7 @@ echo "<h1> Clientes </h1>";
 $clientes = $post->getClientes();
 while ($cliente = mysqli_fetch_assoc($clientes)) {
     
-    $nome = utf8_encode(strtoupper(filter_var($cliente["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
+    $nomeCliente = utf8_encode(filter_var($cliente["nome"], FILTER_SANITIZE_SPECIAL_CHARS));
     $logradouro = utf8_encode(filter_var($cliente["logradouro"], FILTER_SANITIZE_SPECIAL_CHARS));
     $complemento = utf8_encode(filter_var($cliente["complemento"], FILTER_SANITIZE_SPECIAL_CHARS));
     $bairro = utf8_encode(filter_var($cliente["bairro"], FILTER_SANITIZE_SPECIAL_CHARS));
@@ -22,14 +22,14 @@ while ($cliente = mysqli_fetch_assoc($clientes)) {
     $uf = strtoupper(filter_var($cliente["uf"],FILTER_SANITIZE_SPECIAL_CHARS));
 
     if(filter_var($cliente["numero"], FILTER_VALIDATE_INT)) {
-        echo "<label><b>".$nome."</b></label><br>
+        echo "<label><b>".$nomeCliente."</b></label><br>
         <label>".$logradouro.", ".$cliente["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$cliente["cep"]."</label><br>
         <label>CPF: ".$cliente["cpf"]."<label><br>
         <label>E-mail: ".utf8_encode($cliente["email"])."<label><br>
         <label>Telefone: ".$cliente["telefone"]."<label><hr>";
     }
     else {
-        echo "<label><b>".$nome."</b></label><br>
+        echo "<label><b>".$nomeCliente."</b></label><br>
         <label>".$logradouro.", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$cliente["cep"]."</label><br>
         <label>CPF: ".$cliente["cpf"]."<label><br>
         <label>E-mail: ".utf8_encode($cliente["email"])."<label><br>
