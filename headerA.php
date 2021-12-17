@@ -66,7 +66,11 @@ if(isset($_REQUEST["pg"])) {
         </script> 
     </head>
     <body>
-        <figure></figure>
+        <div id="logo">
+            <figure>
+                <img src="imagens/logo.png">
+            </figure>
+        </div>
         <nav class="menu">
             <ul>
                 <li><a href="home.php"> home </li>
@@ -88,7 +92,7 @@ if(isset($_REQUEST["pg"])) {
                         <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=cadCad"> caderneta </a></li>
                     </ul>
                 </li>
-                <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=gerenciar"> gerenciar adms </a></li>
+                <li><a href="<?=$_SERVER['PHP_SELF']?>?pg=gerenciar"> gerenciamento </a></li>
                 <li><a href="close_session.php"> sair </a></li>
             </ul>
         </nav>
