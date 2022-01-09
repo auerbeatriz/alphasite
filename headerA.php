@@ -59,7 +59,7 @@ if(isset($_REQUEST["pg"])) {
     <head>
         <meta charset ="utf-8">
         <title> Pomar Hortifruti </title>
-        <link href="css/style.css" rel="stylesheet">
+        <link href="css/style2.css" rel="stylesheet">
         <!-- Aqui alteramos o titulo da página para o nome do usuário logado -->
         <script type="text/javascript">
             document.title = "<?=$nome?>"

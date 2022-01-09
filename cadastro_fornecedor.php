@@ -45,15 +45,22 @@ if(isset($_POST["btn-cad-forn"])) {
         $erros[] = "<label>Por favor, preencha todos os dados solicitados.</label><br>";
     }
     
-    if(!empty($erros)) {
+    if(!empty($erros)) {      
         mysqli_close($con);
         $_SESSION["erros"] = $erros;
         header("Location: form_cad_fornecedor.php");
     }
     else {
         //  TODO: cadastro da empresa
-        $_SESSION["success"] = 1;
-        header("Location: form_cad_fornecedor.php");
+        if($post->registerFornecedor($razaoSocial, $cnpj, $email, $telefone, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf)) {
+            mysqli_close($con);
+            header("Location: home.php");
+        }
+        else {
+            $erros[] = "Não foi possível cadastrar o fornecedor. Tente novamente.";
+            $_SESSION["erros"] = $erros;
+            header("Location: form_cad_fornecedor.php");
+        }
     }
     
 }

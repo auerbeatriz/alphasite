@@ -55,3 +55,5 @@ __________________________________________________________________
   Para isso, utilizamos o plugin para JQuery (Jquery Mask Plugin) desenvolvido por Igor Escobar.
   A documentação do plugin pode ser encontrada aqui: https://igorescobar.github.io/jQuery-Mask-Plugin/
   Para a implementação, seguimos o tutorial: https://www.youtube.com/watch?v=U9504YniAFE
+
+> ADMIN: auerbeatriz - 123456

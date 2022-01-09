@@ -139,17 +139,11 @@ function validaCpf($cpf) {
     }
 }
 
-function exibeErros() {
-    if(!empty($_SESSION["erros"]) || !is_null($_SESSION["erros"])) {
-        foreach($_SESSION["erros"] as $erro) {
+function exibeErros($erros) {
+    if(!empty($erros) || !is_null($erros)) {
+        foreach($erros as $erro) {
             echo $erro;
         }
-    }
-    if (!is_null($_SESSION["success"])) {
-        echo "<script type='text/javascript'>
-            alert('Cadastro realizado com sucesso!');
-            </script>";
-        $_SESSION["success"] = null;
     }
 }
 
@@ -178,21 +172,26 @@ function maskFunctions() {
 }
 
 function listProdutosForVenda($produto) {
-    $nome = utf8_encode(strtoupper(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
+    $nome = utf8_encode(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS));
     $id = $produto["id"];
     $preco = $produto["preco_venda"];
     $foto = $produto["foto"];
 
-    echo "<div class='produtos'>
+    echo "  
+    
+    <div class='square'>
     <form action='".$_SERVER['PHP_SELF']."?id=$id' method='POST'>
-        <img src='$foto' height='250px'><br>
         <label>$nome</label>
-        <label><b>R$ ".number_format($preco, 2)."</b></label><br>
+        <figure><img src=".$foto." class='oferta'/></figure>
+        <div id='circulo'>
+            <label class='preco'>R$ ".number_format($preco, 2)."</label><br>
+        </div>
+        
         <input type='hidden' name='nome' value='$nome'>
         <input type='hidden' name='preco' value='$preco'>
 
-        <input name='qtd' type='number' value='1' min='0.05'step='0.01'>
-        <input type='submit' name='add' value='Adicionar'>
+        <input name='qtd' type='number' value='1' min='0.05'step='0.01' class='qtd'>
+        <input id='btn' class='botao' type='submit' name='add' value='Adicionar'>
     </form>
     </div>";
 }

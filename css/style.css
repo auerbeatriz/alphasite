@@ -21,7 +21,8 @@ html, body {
     background: transparent; /* make scrollbar transparent */
 }
 body {
-    text-align: center;
+    background-image: url("../imagens/oranges.jpg");
+    background-size: cover;
 }
 
 /* ajustando a imagem */
@@ -41,20 +42,18 @@ div#logo img {
     margin-top: -2.84vh;
 }
 
-/*nav*/
-
-nav.menu {
-    height: 15.2vh;
+/* estilizando o menu de navegação */
+nav {
     margin-top: -3vh;
-    display: flex;
+    height: 15.2vh;
 
-    background-color: #f5821f;     
+    background-color: #f5821f;    
 }
-nav.menu ul {
+nav ul {
     padding: 0;
 }
-nav.menu ul li {
-    width: 16.2vw;
+nav ul li {
+    width: 20vw;
     height: 15vh;
     line-height: 15vh;
 
@@ -70,20 +69,9 @@ nav.menu ul li {
     font-size: 25px;
     font-weight: 500;
 }
-nav.menu ul li:hover {
+nav ul li:hover {
     background-color: #70bf4c;
     cursor: pointer;
-}
-nav.menu ul li:hover > ul {
-    display: block;
-}
-nav.menu ul ul {
-    display: none;
-}
-nav.menu ul ul li {
-    height: 10vh;
-    line-height: 10vh;
-    background-color: #f69440;
 }
 a:link {
     color: white;
@@ -94,26 +82,87 @@ a:visited {
     text-decoration: none;
 }
 
-div.cesta {
-    float: left;
-    display: inline;
-    width: 74%;
-    margin-left: 0.5%;
-    
+/* estilização do formulário de login */
+article {
+    text-align: center;
 }
-div.produtos {
-    float: left;
-    display: inline;
-    padding: 0.8%;
+div#login {
+    display: inline-block;
+    width: 40vw;
+    height: 45vh;
+    margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 10px;
+}
+div#titulo {
+    height: 7vh;
+    line-height: 7vh;
+
+    color: white;
+    font-weight: 500;
+    font-size: 18pt;
+    background-color: #70bf4c;
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-color: transparent;
+}
+form {
+    margin-top: 6vh;
 }
 
-div.receipt {
-    float: right;
-    display: inline;
-    width: 22.5%;
-    margin-top: -5%;
-    margin-right: 1%;
-}
-div.receipt h2{
+input.campo {
+    width: 30vw;
+    height: 6vh;
+    margin-bottom: 1.5vh;
+
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: 0.5px solid;
+	border-bottom-color: #f5821f;
+    outline: none;
+    background-color: transparent;
+
     text-align: center;
+    font-size: 14pt;
+    font-weight: 300;
+}
+input.campo::placeholder{
+    font-size: 13pt;
+    font-weight: 300;
+}
+input.botao {
+    width: 20vw;
+    height: 6vh;
+    margin-top: 2.8vh;
+
+    text-decoration: none;
+    font-size: 14pt;
+    color: white;
+    cursor: pointer;
+
+    border: none;
+    border-radius: 5px;
+    background-color: #70bf4c;
+    transition: background .3s;
+}
+input.botao:hover {
+    background-color: rgba(31, 104, 49, 0.8);
+}
+
+.erro{
+    color: red;
+}
+
+footer {
+    position:absolute;
+    bottom:0;
+    right:0;
 }

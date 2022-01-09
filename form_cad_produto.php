@@ -15,30 +15,39 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
 
 ?>
 
+    <h2> Cadastro de produto </h2>
     <div id="erros">
-        <?=exibeErros()?>
+            <?=exibeErros($_SESSION["erros"])?>
     </div>
 
     <form id="cad-produto" action="cadastro_produto.php" enctype="multipart/form-data" method="POST">
+    <div>
+        <p>
         <label for="nome"> Código de barras: </label>
-        <input type="text" name="codigo" required="required"> <br>
-
+        <input class="campo" type="text" name="codigo" required="required"> <br>
+        </p>
+        <p>
         <label for="nome"> Nome do produto: </label>
-        <input type="text" name="nome" required="required" placeholder="Alface"> <br>
-
+        <input class="campo" type="text" name="nome" required="required" placeholder="Alface"> <br>
+        </p>
+        <p>
         <label for="preco"> Preço de venda: </label>
-        <input type="number" step="0.01" name="preco" required="required" placeholder="R$ 1,00"> <br>
-
+        <input class="campo" type="number" step="0.01" name="preco" required="required" placeholder="R$ 1,00"> <br>
+        </p>
+        <p>
         <label for="fornecedor"> Fornecedor: </label>
-        <select name="fornecedor" required="">
+        <select class="campo" name="fornecedor" required="">
             <option value="0" selected="selected">Produção própria</option>
             <?php listFornecedores($post); ?>
         </select><br>
-
+        </p>
+        <p>
         <label for="foto"> Foto do produto: </label>
         <input type="file" name="foto"> <br>
+        <p>
+    </div>
 
-        <input type="submit" name="btn-cad-produto" value="Cadastrar Produto">
+        <input class="botao" type="submit" name="btn-cad-produto" value="Cadastrar Produto">
     </form>
 
 <?php

@@ -13,11 +13,12 @@ if(isset($_POST["btn-cad-venda"])) {
     $cliente = filter_input(INPUT_POST, "cliente", FILTER_SANITIZE_NUMBER_INT); //id
     $obs = filter_input(INPUT_POST, "obs", FILTER_SANITIZE_SPECIAL_CHARS);
     $data = $_POST["data"];
+    $produtos = $_SESSION["cesta"];
 
     //  obtem o numero da nota que sera salva e o total da compra
     $numeroNota = (int) $post->getLastVenda() + 1;
     $total = 0;
-    foreach($_SESSION["cesta"] as $key=>$value) {
+    foreach($produtos as $key=>$value) {
         $total += (float) $value["total"];
     }
 
@@ -31,33 +32,30 @@ if(isset($_POST["btn-cad-venda"])) {
         $erros[] = "<label>Não foi possível calcular o valor total da compra.</label><br>";
     }
 
-    if(is_null($_SESSION["cesta"])) {
+    if(is_null($produtos)) {
         $erros[] = "<label>A cesta está vazia.</label><br>";
     }
     if(empty($data)) {
         $erros[] = "<label>Por favor, preencha todos os campos requeridos.</label><br>";
     }
-
-    foreach($_SESSION["cesta"] as $key=>$value) {
-        if(!empty($value["id"]) && !empty($value["qtd"])) {
-            // cadastra produto_venda
-        }
-        else {
-            $erros[] = "<label>Não foi possível cadastrar a compra, pois faltam dados de alguns produtos selecionados.</label><br>";
-        }
-    } 
     
     /* redirecionamento */
-    if(!empty($erros)) {
+   if(!empty($erros)) {
         mysqli_close($con);
         $_SESSION["erros"] = $erros;
         header("Location: form_cad_venda.php");
     }
     else {
         //  TODO: cadastro da empresa
-        unset($_SESSION["cesta"]);
-        $_SESSION["success"] = 1;
-        header("Location: form_cad_venda.php");
+        if($post->registerVenda($numeroNota, $data, $cliente, $total, $obs, $produtos)) {
+            mysqli_close($con);
+            header("Location: home.php");
+        }
+        else {
+            $erros[] = "Não foi possível cadastrar a venda. Tente novamente.";
+            $_SESSION["erros"] = $erros;
+            header("Location: form_cad_venda.php");
+        }
     }
 }
 

@@ -36,17 +36,22 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
         <?=exibeErros($_SESSION["erros"])?>
     </div><br>
 
-   <form action="cadastro_adm.php" method="POST">
+   <form action="cadastro_adm.php" class="cad" method="POST">
+    <div class = table>
+    <p>
        <label for="nome">Nome: </label>
-       <input type="text" name="nome"></br>
-
+       <input class="campo" type="text" name="nome"></br>
+    </p>
+    <p>
        <label for="login">Login: </label>
-       <input type="text" name="login"></br>
-
+       <input class="campo" type="text" name="login"></br>
+    </p>
+    <p>
        <label for="nome">Senha: </label>
-       <input type="password" name="senha"></br>
-
-       <input type="submit" name="cad-adm" value="Cadastrar"></br>
+       <input class="campo" type="password" name="senha"></br>
+    </p>
+    </div>
+       <input class="botao" type="submit" name="cad-adm" value="Cadastrar"></br>
    </form>
 
 <?php

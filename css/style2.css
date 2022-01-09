@@ -1,0 +1,227 @@
+/* importando as fontes do site */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* layout da página em geral */
+html, body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14pt;
+
+    overflow: scroll;
+}
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+body {
+    text-align: center;
+}
+
+/* ajustando a imagem */
+div#logo {
+    float: left;
+    display: inline;
+
+    width: 17vw;
+    height: 15vh;
+    padding: 0;
+    margin-right: 2vw;
+
+    background-color: white;
+}
+div#logo img {
+    height: 15vh;
+    margin-top: -2.84vh;
+}
+
+/*nav*/
+
+nav.menu {
+    height: 15.2vh;
+    margin-top: -3vh;
+    display: flex;
+
+    background-color: #f5821f;     
+}
+nav.menu ul {
+    padding: 0;
+}
+nav.menu ul li {
+    width: 16.2vw;
+    height: 15vh;
+    line-height: 15vh;
+
+    float: left;
+    display: inline;
+    position: relative;
+    z-index: 2;
+
+    background-color: #f5821f;
+    color: white;
+    
+    word-spacing: 2vw;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+}
+nav.menu ul li:hover {
+    background-color: #70bf4c;
+    cursor: pointer;
+}
+nav.menu ul li:hover > ul {
+    display: block;
+}
+nav.menu ul ul {
+    display: none;
+}
+nav.menu ul ul li {
+    height: 10vh;
+    line-height: 10vh;
+    background-color: #f69440;
+}
+a:link {
+    color: white;
+    text-decoration: none;
+}
+a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+div.cesta {
+    float: left;
+    display: inline;
+
+    text-align: center;
+    
+    margin-left: -19vw;
+    margin-top: 3vh;
+    padding-top: 2vh;
+    width: 69.5vw;
+}
+div.square {
+    width: 15vw;
+    display: inline-block;
+    margin-right: 1vw;
+    text-align: center;
+}
+img.oferta {
+    width: 10vw;
+    border-radius: 10px;
+}
+div#circulo {
+    width: 60px;
+    height: 60px;
+    margin-top: -28vh;
+    margin-right: 1vw;
+
+    display: inline-block;
+    float: right;
+    position:relative;
+
+    border-radius: 50%;
+    background-color: #1f6831;
+
+    text-align: center;
+    line-height: 60px;
+    color:white;
+    font-weight: 500;
+    font-size: 10pt;
+}
+input.qtd {
+    height: 4vh;
+    width: 10vw;
+    outline: none;
+    border: 0.5px solid;
+    border-color: #f5821f;
+    background-color: transparent;
+}
+input#btn {
+    width: 10vw;
+}
+
+div.receipt {
+    float: right;
+    display: inline;
+    width: 30vw;
+}
+div.receipt h2{
+    text-align: center;
+}
+
+input.campo {
+    /*width: 15vw;*/
+    height: 6vh;
+    margin-bottom: 1.5vh;
+
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: 0.5px solid;
+	border-bottom-color: #f5821f;
+    outline: none;
+    background-color: transparent;
+
+    text-align: center;
+    font-size: 14pt;
+    font-weight: 300;
+}
+input.campo::placeholder{
+    font-size: 13pt;
+    font-weight: 300;
+}
+input.botao {
+    width: 20vw;
+    height: 6vh;
+    margin-top: 2.8vh;
+    margin-bottom: 2.8vh;
+    
+
+    text-decoration: none;
+    font-size: 14pt;
+    color: white;
+    cursor: pointer;
+
+    border: none;
+    border-radius: 5px;
+    background-color: #70bf4c;
+    transition: background .3s;
+}
+input.botao:hover {
+    background-color: rgba(31, 104, 49, 0.8);
+}
+
+.erro{
+    color: red;
+}
+
+label.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+table
+{ 
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+#footer
+{
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
+img.display_produto {
+    height: 20vh;
+    border-radius: 10px;
+}

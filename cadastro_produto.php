@@ -21,7 +21,7 @@ if(isset($_POST["btn-cad-produto"])) {
         $erros[] = "<label>O código de barras informado não é válido.</label><br>";
     }
     
-    if ($fornecedor <> 0 || !filter_var($fornecedor, FILTER_VALIDATE_INT)) {
+    if ($fornecedor <> 0 && !filter_var($fornecedor, FILTER_VALIDATE_INT)) {
         $erros[] = "<label>Não foi possível localizar o fornecedor.</label><br>";
     }
     if (!filter_var($preco, FILTER_VALIDATE_FLOAT)) {
@@ -61,8 +61,15 @@ if(isset($_POST["btn-cad-produto"])) {
     }
     else {
         //  TODO: cadastro da empresa
-        $_SESSION["success"] = 1;
-        header("Location: form_cad_produto.php");
+        if($post->registerProduto($codigo, $nome, $preco, $path.$name, $fornecedor)) {
+            mysqli_close($con);
+            header("Location: home.php");
+        }
+        else {
+            $erros[] = "Não foi possível cadastrar o produto. Tente novamente.";
+            $_SESSION["erros"] = $erros;
+            header("Location: form_cad_produto.php");
+        }
     }
 }
 

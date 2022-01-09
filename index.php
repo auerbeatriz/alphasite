@@ -1,3 +1,6 @@
+<style>
+<?php include 'CSS/style.css'; ?>
+</style>
 <?php
 include_once("header.php");
 
@@ -6,26 +9,31 @@ session_start();
 $_SESSION["logado"] = false;
 ?>
 
-<h1>Login</h1>
-   <div id="erros">
+    <article>
+
+<div id="login">
+    <div id="titulo">
+        <label>Login</label>
+    </div>
+
+    <form id="login" action="login.php" method="POST">
+    <div id="erros">
        <?php
        if(!empty($_SESSION["erros"])) {
            foreach($_SESSION["erros"] as $erro) {
-               echo $erro;
+               echo '<p class="erro">' . $erro . '</p>';
            }
        }        
        ?>
     </div>
+        <input class="campo" type="text" name="adm" placeholder="Nome de Admin"><br>
+        <input class="campo" type="password" name="senha" placeholder="Senha"><br>
 
-<form id="login" action="login.php" method="POST">
-    <label for="adm">Nome de adm: </label>
-    <input type="text" name="adm"> <br>
+        <input class="botao" type="submit" name="btn-login" value="Entrar">
+    </form>
+</div>
 
-    <label for="senha">Senha: </label>
-    <input type="password" name="senha"> <br>
-
-    <input type="submit" name="btn-login" value="Entrar">
-</form>
+</article>
 
 <?php
 include_once("footer.php");

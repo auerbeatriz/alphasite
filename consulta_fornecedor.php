@@ -28,7 +28,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
 
         if(filter_var($fornecedor["numero"], FILTER_VALIDATE_INT)) {
             echo "<label><b>".$razaoSocial."</b></label><br>
-            <label>".$logradouro.", ".$fornecedor["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$fornecedor["cep"]."</label><br>
+            <label class='center'>".$logradouro.", ".$fornecedor["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$fornecedor["cep"]."</label><br>
             <label>CNPJ: ".$fornecedor["cnpj"]."<label><br>
             <label>E-mail: ".utf8_encode($fornecedor["email"])."<label><br>
             <label>Telefone: ".$fornecedor["telefone"]."<label><hr>";

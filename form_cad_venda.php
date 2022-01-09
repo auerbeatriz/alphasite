@@ -1,3 +1,4 @@
+
 <?php
 require_once("config.php");
 include_once("util.php");
@@ -53,31 +54,36 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
     <div class="receipt">
         <h2>Recibo</h2>
         <form action="cadastro_venda.php" method="POST">
+            <p>
             <label for="data"> Data de ocorrência: </label>
-            <input type="date" name="data" required="required"> <br>
-
+            <input class="campo" type="date" name="data" required="required"> <br>
+            </p>
+            <p>
             <label for="cliente"> Cliente: </label>
             <select name="cliente">
                 <option value="0" selected="selected">Não especificado</option>
                 <?php listClientes($post); ?>
             </select><br>
-
+            </p>
+            <p>
             <label for="obs"> Observação: </label>
-            <input type="text" name="obs"> <br><br>
-
+            <input class="campo" type="text" name="obs"> <br><br>
+            </p>
+            <p>
             <div id="result">
                 <?php if(isset($_SESSION["cesta"])){listCesta($_SESSION["cesta"]);} ?>
+            </p>           
             </div><br>
-
-            <input type="submit" name="btn-cad-venda" value="Cadastrar Venda">
+            
+            <input class="botao" type="submit" name="btn-cad-venda" value="Cadastrar Venda">
         </form><br>
 
         <form action="" method="POST">
-            <input type="submit" name="limpar" value="Limpar Cesta">
+            <input class="botao" type="submit" name="limpar" value="Limpar Cesta">
         </form> <br>
 
-        <div id="erros">
-            <?php if(isset($_SESSION["erros"])) {exibeErros();} ?>
+        <div class="erro">
+            <?php if(isset($_SESSION["erros"])) {exibeErros($_SESSION["erros"]);} ?>
         </div><br>
     </div>
 

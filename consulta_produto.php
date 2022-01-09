@@ -18,12 +18,13 @@ while ($produto = mysqli_fetch_assoc($produtos)) {
     $fornecedor = utf8_encode(filter_var($produto["fornecedor"], FILTER_SANITIZE_SPECIAL_CHARS));
 
     if(filter_var($produto["preco_venda"], FILTER_VALIDATE_FLOAT)) {
-        echo "<label>".$produto["codigo_barras"]." - <b>".$nomeProduto."</b></label><br>
+        echo "<figure>
+        <img src='".$produto["foto"]."' class='display_produto'>
+        </figure>
+        <label>".$produto["codigo_barras"]." - <b>".$nomeProduto."</b></label><br>
         <label>Fornecedor: ".$fornecedor."</label><br>
         <label>Preço de venda: R$".$produto["preco_venda"]."<label>
-        <figure>
-            <img src='".$produto["foto"]."'>
-        </figure><hr>";
+        <hr>";
     }
     else {
         echo "<label>".$produto["codigo_barras"]." - <b>".$nomeProduto."</b></label><br>

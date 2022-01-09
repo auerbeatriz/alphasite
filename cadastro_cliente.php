@@ -1,15 +1,17 @@
+
+
 <?php
 require_once("config.php");
 include_once("util.php");
 include_once("post.php");
 
 session_start();
-
 if(isset($_POST["btn-cad-cli"])) {
     $erros = array();
     $post = new Post($con);    
 
     /* sanitização dos campos do formulário */
+    
     $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
     $telefone = $_POST["telefone"];
@@ -53,8 +55,15 @@ if(isset($_POST["btn-cad-cli"])) {
     }
     else {
         //  TODO: cadastro do cliente
-        $_SESSION["success"] = 1;
-        header("Location: form_cad_cliente.php");
+        if($post->registerCliente($nome, $email, $telefone, $cpf, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf)) {
+            mysqli_close($con);
+            header("Location: home.php");
+        }
+        else {
+            $erros[] = "Não foi possível cadastrar o cliente. Tente novamente.";
+            $_SESSION["erros"] = $erros;
+            header("Location: form_cad_cliente.php");
+        }
     }
 }
 

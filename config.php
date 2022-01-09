@@ -1,7 +1,7 @@
 <?php
 
 $servername = "localhost";
-$dbname = "pomarhortifruti";
+$dbname = "obahortifruti";
 $username = "root";
 $password = "usbw";
 

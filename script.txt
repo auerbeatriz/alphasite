@@ -10,7 +10,7 @@ CREATE TABLE ADMINISTRADORES (
 CREATE TABLE FORNECEDOR (
     id int AUTO_INCREMENT PRIMARY KEY,
     razao_social varchar(255),
-    cnpj char(16),
+    cnpj char(18),
     cep char(9),
     logradouro varchar(255),
     numero int,
@@ -19,7 +19,7 @@ CREATE TABLE FORNECEDOR (
     cidade varchar(255),
     uf char(2),
     email varchar(100),
-    telefone varchar(14)
+    telefone varchar(15)
 );
 
 CREATE TABLE PRODUTO (
@@ -112,8 +112,6 @@ INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `nu
 INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`) VALUES (NULL, 'Simone e Bryan Pães e Doces Ltda', '31403473000163', '29179216', 'Rua Burarema', '900', 'Centro da Serra', NULL, 'Serra', 'ES', 'producao@simoneebryanpaesedocesltda.com.br', '2737760811');
 INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`) VALUES (NULL, 'Henry e Gabriela Alimentos Ltda', '76090377000140', '29903107', 'Rua Henrique de Coimbra', '885', NULL, 'Interlagos', 'Linhares', 'ES', 'compras@henryegabrielaalimentosltda.com.br', '2737466537');
 
-INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '0001', 'Pão doce com côco', '1', 'imagens/pao_doce.jpg', '3');
-INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '1001', 'Toddynho', '1.50', 'imagens/toddynho.jpg', '1');
 INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '2001', 'Cereja kg', '39.99', 'imagens/cereja.jpg', '4');
 INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '2002', 'Côco unidade', '4.99', 'imagens/coco.jpg', '4');
 INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '1002', 'Tartelete morango', '12', 'imagens/tartelete.jpg', '4');

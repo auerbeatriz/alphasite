@@ -113,6 +113,53 @@ class POST {
         $result = mysqli_fetch_assoc($result);
         return $result["total"];
     }
+
+    public function registerFornecedor($razaoSocial, $cnpj, $email, $telefone, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf) {
+        $query = "INSERT INTO 
+        `fornecedor` (`razao_social`, `cnpj`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `email`, `telefone`)
+        VALUES ('$razaoSocial', '$cnpj', '$cep', '$logradouro', '$numero', '$complemento', '$bairro', '$cidade', '$uf', '$email', '$telefone');";
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function registerCliente($nome, $email, $telefone, $cpf, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf) {
+        $query = "INSERT INTO `cliente` (`nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES ('$nome', '$email', '$telefone', '$cpf', '$cep', '$logradouro', '$numero', '$complemento', '$bairro', '$cidade', '$uf');";
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function registerProduto($codigo_barras, $nome, $preco, $foto, $fornecedor) {
+        $query = "INSERT INTO `produto` (`codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES ('$codigo_barras', '$nome', '$preco', '$foto', '$fornecedor');";
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function registerVenda($numeroNota, $data, $cliente, $total, $obs, $produtos) {
+        mysqli_query($this->conn, "SET AUTOCOMMIT=0");
+        mysqli_query($this->conn, "START TRANSACTION");
+
+        $result[] = mysqli_query($this->conn, "INSERT INTO venda VALUES ($numeroNota, '$data', $cliente, $total, '$obs');");
+        foreach($produtos as $key=>$value) {
+            if(!empty($value["id"]) && !empty($value["qtd"])) {
+                $result[] =  mysqli_query($this->conn, "INSERT INTO produtos_da_venda VALUES ('".$value['id']."', '$numeroNota', ".$value['qtd'].");");
+            }
+        }
+
+        if(in_array(false, $result)) {
+            mysqli_query($this->conn, "ROLLBACK");
+            return false;
+        } else {        
+            mysqli_query($this->conn, "COMMIT");
+            return true;
+        }
+    }
+
+    public function registerCaderneta($cliente, $produto, $qtd, $data, $total, $obs) {
+        $query = "INSERT INTO `caderneta` (`id_cliente`, `id_produto`, `qtd`, `data`, `total`, `obs`) VALUES ('$cliente', '$produto', '$qtd', '$data', '$total', '$obs');";
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function registerAdm($nome, $login, $senha) {
+        $query = "INSERT INTO `administradores` (`nome`, `login`, `senha`) VALUES ('$nome', '$login', '$senha')";
+        return mysqli_query($this->conn, $query);
+    }
 }
 
 ?>

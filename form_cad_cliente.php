@@ -1,3 +1,4 @@
+
 <?php
 
 require_once("config.php");
@@ -14,46 +15,60 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
     require_once("headerA.php");
     maskFunctions();
 ?>
-
-    <div id="erros">
-        <?=exibeErros()?>
-    </div>
-
-    <form id="cad-cliente" action="cadastro_cliente.php" method="POST">
+    <h2> Cadastro de cliente </h2>
+    <div class="erro">
+            <?=exibeErros($_SESSION["erros"])?>
+    </div><br>
+    
+    <form id="cad-cliente"action="cadastro_cliente.php" method="POST">
+              
+        <div>
+        <p>
         <label for="nome"> Nome: </label>
-        <input type="text" name="nome" required="required"> <br>
-
+        <input class="campo" type="text" name="nome" required="required"> <br>
+        </p>
+        <p>
         <label for="cpf"> CPF: </label>
-        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00"> <br>
-
+        <input class="campo" type="text" id="cpf" name="cpf" placeholder="000.000.000-00"> <br>
+        </p>
+        <p>
         <label for="email"> Email: </label>
-        <input type="email" name="email" > <br>
-
+        <input class="campo" type="email" name="email" > <br>
+        </p>
+        <p>
         <label for="telefone"> Telefone: </label>
-        <input type="tel" id="tel" name="telefone" required="required" placeholder="(00) 00000-00000"> <br>
-
+        <input class="campo" type="tel" id="tel" name="telefone" required="required" placeholder="(00) 00000-00000"> <br>
+        </p>
+        <p>
         <label for="cep"> CEP: </label>
-        <input type="text" id="cep" name="cep" placeholder="00000-00"> <br>
-
+        <input class="campo" type="text" id="cep" name="cep" placeholder="00000-00"> <br>
+        </p>
+        <p>
         <label for="logradouro"> Logradouro: </label>
-        <input type="text" name="logradouro" > <br>
-
+        <input class="campo" type="text" name="logradouro" > <br>
+        </p>
+        <p>
         <label for="numero"> Número: </label>
-        <input type="text" name="numero" > <br>
-
+        <input class="campo" type="text" name="numero" > <br>
+        </p>
+        <p>
         <label for="complemento"> Complemento: </label>
-        <input type="text" name="complemento"> <br>
-
+        <input class="campo" type="text" name="complemento"> <br>
+        </p>
+        <p>
         <label for="bairro"> Bairro: </label>
-        <input type="text" name="bairro"> <br>
-
+        <input class="campo" type="text" name="bairro"> <br>
+        </p>
+        <p>
         <label for="cidade"> Cidade: </label>
-        <input type="text" name="cidade" > <br>
-
+        <input class="campo" type="text" name="cidade" > <br>
+        </p>
+        <p>
         <label for="uf"> Estado: </label>
-        <input type="text" name="uf" size="2" maxlength="2" placeholder="XX"> <br>    
-
-        <input type="submit" name="btn-cad-cli" value="Cadastrar Cliente">
+        <input class="campo" type="text" name="uf" size="2" maxlength="2" placeholder="XX"> <br>    
+        </p>
+        </div>
+        <input class="botao" type="submit" name="btn-cad-cli" value="Cadastrar Cliente">
     </form>
 
 <?php

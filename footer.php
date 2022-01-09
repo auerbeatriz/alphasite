@@ -1,6 +1,7 @@
+
 <?php
 if(isset($nome)) {
-    echo "<br><br><label><i>ADM logado no momento: ".$nome."</i></label>";
+    echo "<br><br><label id='footer'><i>ADM logado no momento: ".$nome."</i></label>";
 }
 ?>
 </body>
