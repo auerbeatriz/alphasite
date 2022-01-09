@@ -23,13 +23,17 @@ if(isset($_POST["cad-adm"])) {
     if(!empty($erros)) {
         mysqli_close($con);
         $_SESSION["erros"] = $erros;
-        header("Location: gerenciar_adm.php");
     }
     else {
-        //  TODO: cadastro da empresa
-        $_SESSION["erros"] = null;
-        header("Location: gerenciar_adm.php");
+        if($post-> registerAdm($nome, $login, $senha)) {
+            mysqli_close($con);
+        }
+        else {
+            $erros[] = "Não foi possível cadastrar o registro. Tente novamente.";
+            $_SESSION["erros"] = $erros;
+        }
     }
+    header("Location: gerenciar_adm.php");
 }
 else {
     header("Location: gerenciar_adm.php");
