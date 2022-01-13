@@ -17,6 +17,7 @@ if(isset($_POST["btn-cad-cad"])) {
     $total = filter_input(INPUT_POST, "total", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $obs = filter_input(INPUT_POST, "obs", FILTER_SANITIZE_SPECIAL_CHARS);
     
+    $nomeProduto = $post->getProdutoName($produto);
 
     /* validação dos campos do formulário */
     if (!filter_var($qtd, FILTER_VALIDATE_FLOAT)) {
@@ -42,10 +43,16 @@ if(isset($_POST["btn-cad-cad"])) {
         header("Location: form_cad_caderneta.php");
     }
     else {
-        //  TODO: cadastro do registro de caderneta
-        if($post->registerCaderneta($cliente, $produto, $qtd, $data, $total, $obs)) {
-            mysqli_close($con);
-            header("Location: home.php");
+        if(!is_null($nomeProduto)) {
+            if($post->registerCaderneta($cliente, $nomeProduto, $qtd, $data, $total, $obs)) {
+                mysqli_close($con);
+                header("Location: consulta_caderneta.php");
+            }
+            else {
+                $erros[] = "Não foi possível cadastrar o registro. Tente novamente.";
+                $_SESSION["erros"] = $erros;
+                header("Location: form_cad_caderneta.php");
+            }
         }
         else {
             $erros[] = "Não foi possível cadastrar o registro. Tente novamente.";

@@ -55,14 +55,16 @@ CREATE TABLE VENDA(
 );
 
 CREATE TABLE PRODUTOS_DA_VENDA (
-    id_produto int,
     numero_nota int,
+    nome_produto varchar(255),
+    valor_unitario float,
     qtd float
 );
 
 CREATE TABLE CADERNETA (
+    id int AUTO_INCREMENT PRIMARY KEY,
     id_cliente int,
-    id_produto int,
+    nome_produto varchar(255),
     qtd float,
     data date,
     total float,
@@ -72,35 +74,24 @@ CREATE TABLE CADERNETA (
 ALTER TABLE PRODUTO ADD CONSTRAINT FK_PRODUTO_2
     FOREIGN KEY (id_fornecedor)
     REFERENCES FORNECEDOR (id)
-    ON DELETE CASCADE;
+    ON DELETE SET NULL;
  
 ALTER TABLE VENDA ADD CONSTRAINT FK_VENDA_2
     FOREIGN KEY (id_cliente)
     REFERENCES CLIENTE (id)
-    ON DELETE CASCADE;
- 
-ALTER TABLE PRODUTOS_DA_VENDA ADD CONSTRAINT FK_PRODUTOS_DA_VENDA_1
-    FOREIGN KEY (id_produto)
-    REFERENCES PRODUTO (id)
-    ON DELETE RESTRICT;
+    ON DELETE SET NULL;
  
 ALTER TABLE PRODUTOS_DA_VENDA ADD CONSTRAINT FK_PRODUTOS_DA_VENDA_2
     FOREIGN KEY (numero_nota)
     REFERENCES VENDA (numero_nota)
-    ON DELETE SET NULL;
+    ON DELETE CASCADE;
  
 ALTER TABLE CADERNETA ADD CONSTRAINT FK_CADERNETA_1
     FOREIGN KEY (id_cliente)
     REFERENCES CLIENTE (id)
-    ON DELETE SET NULL;
- 
-ALTER TABLE CADERNETA ADD CONSTRAINT FK_CADERNETA_2
-    FOREIGN KEY (id_produto)
-    REFERENCES PRODUTO (id)
-    ON DELETE SET NULL;
+    ON DELETE CASCADE;
 
 INSERT INTO `administradores` (`id`, `nome`, `login`, `senha`) VALUES (NULL, 'Beatriz Auer Mariano', 'auerbeatriz', 'e10adc3949ba59abbe56e057f20f883e');
-
 INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Regina Márcia Monteiro', 'reginamarciamonteiro..reginamarciamonteiro@telefonica.com', '27998899482', '56261291705', '29177238', 'Rua Furnas', '131', NULL, 'Divinópolis', 'Serra', 'ES');
 INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Breno Marcos Galvão', 'brenomarcosgalvao..brenomarcosgalvao@triunfante.com.br', '27989898812', '02292230798', '29177168', 'Rua das Orquídeas', '285', NULL, 'Cascata', 'Serra', 'ES');
 INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Daniela Emilly Malu Nascimento', 'ddanielaemillymalunascimento@somma.net.br', '27999241167', '96986767757', '29179160', 'Rua Açariquara', '744', NULL, 'Centro da Serra', 'Serra', 'ES');
@@ -115,10 +106,3 @@ INSERT INTO `fornecedor` (`id`, `razao_social`, `cnpj`, `cep`, `logradouro`, `nu
 INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '2001', 'Cereja kg', '39.99', 'imagens/cereja.jpg', '4');
 INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '2002', 'Côco unidade', '4.99', 'imagens/coco.jpg', '4');
 INSERT INTO `produto` (`id`, `codigo_barras`, `nome`, `preco_venda`, `foto`, `id_fornecedor`) VALUES (NULL, '1002', 'Tartelete morango', '12', 'imagens/tartelete.jpg', '4');
-
-INSERT INTO `caderneta` (`id_cliente`, `id_produto`, `qtd`, `data`, `total`, `obs`) VALUES ('4', '1', '3', '2021-12-12', '3', 'PAGAMENTO EM 20/12');
-
-INSERT INTO `venda` (`numero_nota`, `data`, `id_cliente`, `total`, `obs`) VALUES (NULL, '2021-12-13', '2', '2.5', 'DINHEIRO');
-
-INSERT INTO `produtos_da_venda` (`id_produto`, `numero_nota`, `qtd`) VALUES ('1', '1', '1');
-INSERT INTO `produtos_da_venda` (`id_produto`, `numero_nota`, `qtd`) VALUES ('2', '1', '1');

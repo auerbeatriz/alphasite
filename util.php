@@ -196,4 +196,25 @@ function listProdutosForVenda($produto) {
     </div>";
 }
 
+function listProdutosForConsulta($produto) {
+    $nome = utf8_encode(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $id = $produto["id"];
+    $preco = $produto["preco_venda"];
+    $foto = $produto["foto"];
+    $codigo_barras = $produto["codigo_barras"];
+    $fornecedor = $produto["fornecedor"];
+
+    echo "  
+    <div class='square'>
+        <label>$nome</label>
+        <figure><img src=".$foto." class='oferta'/></figure>
+        <div id='circulo'>
+            <label class='preco'>R$ ".number_format($preco, 2)."</label><br>
+        </div>
+        <label>$codigo_barras</label><br>
+        <label><b>Fornecedor:</b> $fornecedor</label><br>
+        <label class='editar'>editar</label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=produto'>excluir</a></label>
+    </div>";
+}
+
 ?>

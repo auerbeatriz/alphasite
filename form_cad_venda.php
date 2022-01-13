@@ -19,6 +19,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
                     "id" => $_GET["id"],
                     "nome" => $_POST["nome"],
                     "qtd" => $_POST["qtd"],
+                    "preco" => $_POST["preco"],
                     "total" => $_POST["qtd"] * $_POST["preco"]
                 );
                 $_SESSION["cesta"][] = $session_array;
@@ -29,6 +30,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
                 "id" => $_GET["id"],
                 "nome" => $_POST["nome"],
                 "qtd" => $_POST["qtd"],
+                "preco" => $_POST["preco"],
                 "total" => $_POST["qtd"] * $_POST["preco"]
             );
             $_SESSION["cesta"][] = $session_array;

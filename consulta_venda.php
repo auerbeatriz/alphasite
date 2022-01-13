@@ -13,30 +13,59 @@ echo "<h1> Registros de vendas </h1>";
 
 $vendas = $post->getVendas();
 while ($venda = mysqli_fetch_assoc($vendas)) {
-
+  
     if(filter_var($venda["numero_nota"], FILTER_VALIDATE_INT)) {
         $numeroNota = $venda["numero_nota"];
-        $cliente = utf8_encode(strtoupper(filter_var($venda["cliente"], FILTER_SANITIZE_SPECIAL_CHARS)));
         $obs = utf8_encode(strtoupper(filter_var($venda["obs"], FILTER_SANITIZE_SPECIAL_CHARS)));
         $data = date_format(date_create($venda["data"]), "d/m/Y");
 
-        echo "<label><b>Nº ".$numeroNota."</b> - ".$data."</label><br>
-            <label><b>Total da compra:</b> R$ ".number_format($venda["total"], 2)."</label><br>
-            <label>Cliente: ".$cliente."</label><br>
-            <label>Observação: ".$obs."</label><br>";
+        if(!is_null($venda["cliente"])) {
+            $cliente = utf8_encode(strtoupper(filter_var($venda["cliente"], FILTER_SANITIZE_SPECIAL_CHARS)));
+        } else {
+            $cliente = "Não informado";
+        }
 
-        echo "<h3>Produtos</h3>";
+        echo "
+        <div class='nota'>
+            <label class='editar'>editar</label> <label class='excluir'> <a href='excluir.php?campo=numero_nota&id=$numeroNota&op=venda'>excluir</a></label><br><br>
+            <label><b>Número da nota:</b> ".$numeroNota."</label> <br>
+            <label><b>Data:</b> ".$data."</label><br>
+            <label><b>Cliente:</b> ".$cliente."</label><br>
+            <label><b>Observação:</b> ".$obs."</label><br>
+
+            <hr noshade='noshade'>
+            
+            <table class='reciboVenda'>
+                <th>Qtd</th>
+                <th>Descricao</th>
+                <th>V. Uni.</th>
+                <th>Total</th>
+            ";
 
         $produtosVenda = $post->getProdutosVenda($numeroNota);
         while ($produto = mysqli_fetch_assoc($produtosVenda)) {
-            $nomeProduto = utf8_encode(filter_var($produto["produto"], FILTER_SANITIZE_SPECIAL_CHARS));
-            echo "<li>".$produto["qtd"]." ".$nomeProduto."</li>";
+            $nomeProduto = utf8_encode(filter_var($produto["nome_produto"], FILTER_SANITIZE_SPECIAL_CHARS));
+            $qtd = $produto["qtd"];
+            $preco = number_format($produto["valor_unitario"], 2);
+            $total = number_format($qtd * $preco, 2);
+            echo " <tr>
+                        <td>$qtd</td>
+                        <td>$nomeProduto</td>
+                        <td>$preco</td>
+                        <td>$total</td>            
+            </tr>";
         }
-        
-        echo "<hr>";
+
+        echo "</table>
+        <hr noshade='noshade'>
+            <label>Total: R$".number_format($venda["total"], 2)."</label>
+        </div>";
     }
     else {
-        echo "<label>Foram encontrados dados inválidos para essa nota. Por motivos de segurança, ela não será exibida.</label><hr>";
+        echo "<div class='nota'>
+        <label class='editar'>editar</label> <label class='excluir'> <a href='excluir.php?id=$numeroNota&op=venda&campo=numero_nota'>excluir</a></label><br>
+        <label>Foram encontrados dados inválidos para essa nota. Por motivos de segurança, ela não será exibida.</label>
+        </div>";
     }
     
     

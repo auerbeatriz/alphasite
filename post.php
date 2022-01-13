@@ -20,6 +20,8 @@ class POST {
         return $result;
     }
 
+    /* consultas */
+
     public function getAdmName($id) {
         $query = "SELECT nome FROM administradores WHERE id = " . $id . ";";
         $result = mysqli_query($this->conn, $query);
@@ -64,15 +66,20 @@ class POST {
 
     public function getProdutos() {
         $query = "SELECT produto.id, produto.nome, produto.preco_venda, produto.foto, fornecedor.razao_social as fornecedor, codigo_barras FROM produto
-                INNER JOIN fornecedor ON produto.id_fornecedor = fornecedor.id";
+                LEFT JOIN fornecedor ON produto.id_fornecedor = fornecedor.id";
         $result = mysqli_query($this->conn, $query);
         return $result;
     }
 
+    public function getProdutoName($id) {
+        $query = "SELECT nome FROM produto WHERE id=$id;";
+        $result = mysqli_query($this->conn, $query);
+        return mysqli_fetch_array($result)["nome"];
+    }
+
     public function getCaderneta() {
-        $query = "SELECT cliente.nome as cliente, produto.nome as produto, qtd, total, obs, data FROM caderneta
-        INNER JOIN cliente ON caderneta.id_cliente = cliente.id
-        INNER JOIN produto ON caderneta.id_produto = produto.id;";
+        $query = "SELECT caderneta.id, cliente.nome as cliente, caderneta.nome_produto as produto, qtd, total, obs, data FROM caderneta
+        LEFT JOIN cliente ON caderneta.id_cliente = cliente.id;";
         $result = mysqli_query($this->conn, $query);
         return $result;
     }
@@ -86,15 +93,14 @@ class POST {
 
     public function getVendas() {
         $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
-        INNER JOIN cliente on venda.id_cliente = cliente.id
+        LEFT JOIN cliente on venda.id_cliente = cliente.id
         ORDER BY data DESC;";
         $result = mysqli_query($this->conn, $query);
         return $result;
     }
 
     public function getProdutosVenda($numeroNota) {
-        $query = "SELECT produto.nome as produto, qtd FROM produtos_da_venda
-        INNER JOIN produto ON produtos_da_venda.id_produto  = produto.id
+        $query = "SELECT qtd, nome_produto, valor_unitario FROM produtos_da_venda
         WHERE numero_nota = $numeroNota;";
         $result = mysqli_query($this->conn, $query);
         return $result;
@@ -113,6 +119,8 @@ class POST {
         $result = mysqli_fetch_assoc($result);
         return $result["total"];
     }
+
+    /* cadastros */
 
     public function registerFornecedor($razaoSocial, $cnpj, $email, $telefone, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf) {
         $query = "INSERT INTO 
@@ -136,9 +144,14 @@ class POST {
         mysqli_query($this->conn, "START TRANSACTION");
 
         $result[] = mysqli_query($this->conn, "INSERT INTO venda VALUES ($numeroNota, '$data', $cliente, $total, '$obs');");
+         
         foreach($produtos as $key=>$value) {
             if(!empty($value["id"]) && !empty($value["qtd"])) {
-                $result[] =  mysqli_query($this->conn, "INSERT INTO produtos_da_venda VALUES ('".$value['id']."', '$numeroNota', ".$value['qtd'].");");
+
+                $nome = utf8_encode($value['nome']);
+                $preco = $value["preco"];
+                $qtd = $value['qtd'];
+                $result[] =  mysqli_query($this->conn, "INSERT INTO `produtos_da_venda`(`numero_nota`, `nome_produto`, `valor_unitario`, `qtd`) VALUES ($numeroNota,'$nome', $preco, $qtd);");
             }
         }
 
@@ -152,7 +165,7 @@ class POST {
     }
 
     public function registerCaderneta($cliente, $produto, $qtd, $data, $total, $obs) {
-        $query = "INSERT INTO `caderneta` (`id_cliente`, `id_produto`, `qtd`, `data`, `total`, `obs`) VALUES ('$cliente', '$produto', '$qtd', '$data', '$total', '$obs');";
+        $query = "INSERT INTO `caderneta` (`id_cliente`, `nome_produto`, `qtd`, `data`, `total`, `obs`) VALUES ('$cliente', '$produto', '$qtd', '$data', '$total', '$obs');";
         return mysqli_query($this->conn, $query);
     }
 
@@ -160,6 +173,15 @@ class POST {
         $query = "INSERT INTO `administradores` (`nome`, `login`, `senha`) VALUES ('$nome', '$login', '$senha')";
         return mysqli_query($this->conn, $query);
     }
+
+    /* exclusao */
+
+    public function exclude($campo, $id, $tabela) {
+        $query = "DELETE FROM `$tabela` WHERE `$campo`='$id';";
+        return mysqli_query($this->conn, $query);
+    }
+
+    /* edicao */
 }
 
 ?>

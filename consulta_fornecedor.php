@@ -12,13 +12,24 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
     $post = new Post($con);
     $nome = $post->getAdmName($_SESSION["id"]);
 
-    require_once("headerA.php");
+    require_once("headerA.php");?>
 
-    echo "<h1> Fornecedores </h1>";
+    <h1> Fornecedores </h1>
+    <table class="consulta">
+        <tr>
+            <th class='col'>RAZÃO SOCIAL</th>
+            <th class='col'>CNPJ</th>
+            <th class='col'>E-MAIL</th>
+            <th class='col'>TELEFONE</th>
+            <th class='col'>ENDEREÇO</th>
+            <th class='col'>Ações</th>
+    </tr>
 
+    <?php
     $fornecedores = $post->getFornecedores();
     while ($fornecedor = mysqli_fetch_assoc($fornecedores)) {
         
+        $id = $fornecedor["id"];
         $razaoSocial = utf8_encode(strtoupper(filter_var($fornecedor["razao_social"], FILTER_SANITIZE_SPECIAL_CHARS)));
         $logradouro = utf8_encode(filter_var($fornecedor["logradouro"], FILTER_SANITIZE_SPECIAL_CHARS));
         $complemento = utf8_encode(filter_var($fornecedor["complemento"], FILTER_SANITIZE_SPECIAL_CHARS));
@@ -26,22 +37,25 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
         $cidade = utf8_encode(filter_var($fornecedor["cidade"], FILTER_SANITIZE_SPECIAL_CHARS));
         $uf = strtoupper(filter_var($fornecedor["uf"],FILTER_SANITIZE_SPECIAL_CHARS));
 
+        $cep =  $fornecedor['cep'];
         if(filter_var($fornecedor["numero"], FILTER_VALIDATE_INT)) {
-            echo "<label><b>".$razaoSocial."</b></label><br>
-            <label class='center'>".$logradouro.", ".$fornecedor["numero"].", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$fornecedor["cep"]."</label><br>
-            <label>CNPJ: ".$fornecedor["cnpj"]."<label><br>
-            <label>E-mail: ".utf8_encode($fornecedor["email"])."<label><br>
-            <label>Telefone: ".$fornecedor["telefone"]."<label><hr>";
-        }
-        else {
-            echo "<label><b>".$razaoSocial."</b></label><br>
-            <label>".$logradouro.", ".$complemento." - ".$bairro." - ".$cidade." - ".$uf." - CEP: ".$fornecedor["cep"]."</label><br>
-            <label>CNPJ: ".$fornecedor["cnpj"]."<label><br>
-            <label>E-mail: ".utf8_encode($fornecedor["email"])."<label><br>
-            <label>Telefone: ".$fornecedor["telefone"]."<label><br>
-            <label><i>O número do endereço não é válido. Por questões de segurança, não será exibido.</i></label><hr>";
-        } 
+            $numero = $fornecedor["numero"];
+        } else { $numero = "s/n"; }
+
+        $endereco = "Cep: $cep, $logradouro, $numero, $complemento, $bairro - $cidade, $uf";
+        
+        echo "
+        <tr class='linha'>
+            <td class='col'>$razaoSocial</td>
+            <td class='col'>".$fornecedor['cnpj']."</td>
+            <td class='col'>".utf8_encode($fornecedor['email'])."</td>
+            <td class='col'>".$fornecedor['telefone']."</td>
+            <td class='col'>$endereco</td>
+            <td class='col'> <label class='editar'>editar</label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=fornecedor'>excluir</a></label> </td>
+        </tr>";
+
     }
+    ?></table><?php
 
     include_once("footer.php");
 }

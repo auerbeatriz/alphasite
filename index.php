@@ -6,13 +6,15 @@ include_once("header.php");
 
 session_start();
 
-$_SESSION["logado"] = false;
+if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
+    header("Location: home.php");
+}
 ?>
 
-    <article>
+<article>
 
 <div id="login">
-    <div id="titulo">
+    <div id="titulo"> 
         <label>Login</label>
     </div>
 

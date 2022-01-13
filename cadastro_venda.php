@@ -38,7 +38,7 @@ if(isset($_POST["btn-cad-venda"])) {
     if(empty($data)) {
         $erros[] = "<label>Por favor, preencha todos os campos requeridos.</label><br>";
     }
-    
+
     /* redirecionamento */
    if(!empty($erros)) {
         mysqli_close($con);
@@ -49,7 +49,8 @@ if(isset($_POST["btn-cad-venda"])) {
         //  TODO: cadastro da empresa
         if($post->registerVenda($numeroNota, $data, $cliente, $total, $obs, $produtos)) {
             mysqli_close($con);
-            header("Location: home.php");
+            unset($_SESSION["cesta"]);
+            header("Location: consulta_venda.php");
         }
         else {
             $erros[] = "Não foi possível cadastrar a venda. Tente novamente.";

@@ -214,6 +214,85 @@ table
     margin-right: auto;
     text-align:center;
 }
+table.consulta {
+    display: block;
+    text-align: left;
+    border-collapse: collapse;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    white-space: nowrap;
+    overflow-x: auto;
+    border-spacing: 2vw 0px;
+}
+table.consulta::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background: lightgrey; /* make scrollbar transparent */
+}
+tr.linha {
+    border-bottom: 1px solid #c5c5c5;
+    height: 5vh;
+}
+.col {
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+.col:first-child {
+    padding-left: 0;
+}
+.col:last-child {
+    padding-right: 0;
+}
+
+div.nota {
+    border: solid 1px #999999;
+    border-radius: 5px;
+    display: inline-block;
+    float: left;
+    width: 22vw;
+
+    padding: 1vw 1vh 1vw 1vh;
+    text-align: left;
+
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    margin-bottom: 2vh;
+}
+div.nota:first-child {
+    margin-left: 0;
+}
+div.nota:last-child {
+    margin-right: 0;
+}
+div.nota hr {
+    border-color: #c5c5c5;
+    border-width: 0; 
+	height: 1px;
+}
+table.reciboVenda {
+    text-align: left;
+    margin-left: -0.2vw;
+    width: 22vw;
+}
+table.reciboVenda td {
+    padding-right: 1vw;
+}
+
+label.editar {
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    background-color: #32CD32;
+    color: white;
+    border-radius: 2px;
+}
+label.excluir {
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    background-color: #D40000;
+    color: white;
+    border-radius: 2px;
+}
+
 #footer
 {
     position:absolute;

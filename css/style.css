@@ -21,7 +21,7 @@ html, body {
     background: transparent; /* make scrollbar transparent */
 }
 body {
-    background-image: url("../imagens/oranges.jpg");
+    background-image: url("imagens/oranges.jpg");
     background-size: cover;
 }
 
