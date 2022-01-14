@@ -40,7 +40,7 @@ while ($registro = mysqli_fetch_assoc($registros)) {
             <td class='col'>".$qtd." ".$produto."</td>
             <td class='col'>R$".number_format($registro["total"], 2)."</td>
             <td class='col'>".$registro["obs"]."</td>
-            <td class='col'> <label class='editar'>editar</label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=caderneta'>excluir</a></label> </td>
+            <td class='col'> <label class='editar'> <a href='update_caderneta.php?id=$id&op=leitura'>editar</a></label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=caderneta'>excluir</a></label> </td>
         </tr>";
 }?></table><?php
 

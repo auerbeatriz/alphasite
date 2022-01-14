@@ -64,6 +64,7 @@ CREATE TABLE PRODUTOS_DA_VENDA (
 CREATE TABLE CADERNETA (
     id int AUTO_INCREMENT PRIMARY KEY,
     id_cliente int,
+    id_produto int,
     nome_produto varchar(255),
     qtd float,
     data date,

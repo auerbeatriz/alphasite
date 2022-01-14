@@ -19,7 +19,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
     </div><br>
     <label><i>Só é possível criar um registro na caderneta para clientes cadastrados</i></label>
 
-    <form id="cad-caderneta" action="cadastro_caderneta.php" method="POST">
+    <form id="cad-caderneta" action="cadastro_update_caderneta.php" method="POST">
         <div>
             <p>
             <label for="data"> Data de ocorrência: </label>
@@ -52,7 +52,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
             <input class="campo" type="text" name="obs" placeholder="Obs."><br>
             </p>
         </div>
-        <input class="botao" type="submit" name="btn-cad-cad" value="Cadastrar Registro">
+        <input class="botao" type="submit" name="btn-cad" value="Cadastrar Registro">
     </form>
 
 <?php

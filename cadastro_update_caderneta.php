@@ -5,7 +5,9 @@ include_once("post.php");
 
 session_start();
 
-if(isset($_POST["btn-cad-cad"])) {
+if(isset($_POST["btn-cad"])) {
+    $op = trim($_POST["btn-cad"]);
+
     $erros = array();
     $post = new Post($con);
 
@@ -44,14 +46,30 @@ if(isset($_POST["btn-cad-cad"])) {
     }
     else {
         if(!is_null($nomeProduto)) {
-            if($post->registerCaderneta($cliente, $nomeProduto, $qtd, $data, $total, $obs)) {
-                mysqli_close($con);
-                header("Location: consulta_caderneta.php");
-            }
-            else {
-                $erros[] = "Não foi possível cadastrar o registro. Tente novamente.";
-                $_SESSION["erros"] = $erros;
-                header("Location: form_cad_caderneta.php");
+            switch ($op) {
+                case "Cadastrar Registro":
+                    if($post->registerCaderneta($cliente, $produto, $nomeProduto, $qtd, $data, $total, $obs)) {
+                        mysqli_close($con);
+                        header("Location: consulta_caderneta.php");
+                    }
+                    else {
+                        $erros[] = "Não foi possível cadastrar o registro. Tente novamente.";
+                        $_SESSION["erros"] = $erros;
+                        header("Location: form_cad_caderneta.php");
+                    }
+                    break;
+                case "Atualizar Registro":
+                    $id = $_POST["id"];
+                    if($post->updateCaderneta($cliente, $produto, $nomeProduto, $qtd, $data, $total, $obs, $id)) {
+                        mysqli_close($con);
+                        header("Location: consulta_caderneta.php");
+                    }
+                    else {
+                        $erros[] = "Não foi possível alterar o registro. Tente novamente.";
+                        $_SESSION["erros"] = $erros;
+                        header("Location: form_cad_caderneta.php");
+                    }
+                    break;
             }
         }
         else {

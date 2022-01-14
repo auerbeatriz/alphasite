@@ -14,10 +14,32 @@ function listClientes($post) {
     }
 }
 
+function listClientesForUpdate($post, $id) {
+    $result = $post->getClientsName();
+    foreach ($result as $row) {
+        if($row["id"] == $id) {
+            echo "<option value=".$row['id']." selected='selected'>".$row['id']. " - " . utf8_encode($row["nome"])."</option>";
+        } else {
+        echo "<option value=".$row['id'].">".$row['id']. " - " . utf8_encode($row["nome"])."</option>";
+        }
+    }
+}
+
 function listProdutos($post) {
     $result = $post->getProductsName();
     foreach ($result as $row) {
         echo "<option value=".$row['id'].">".$row['id']. " - " . utf8_encode($row["nome"])."</option>";
+    }
+}
+
+function listProdutosForUpdate($post, $id) {
+    $result = $post->getProductsName();
+    foreach ($result as $row) {
+        if($row["id"] == $id) {
+            echo "<option value=".$row['id']." selected='selected'>".$row['id']. " - " . utf8_encode($row["nome"])."</option>";
+        } else {
+            echo "<option value=".$row['id'].">".$row['id']. " - " . utf8_encode($row["nome"])."</option>";
+        }
     }
 }
 

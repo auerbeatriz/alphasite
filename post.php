@@ -84,6 +84,12 @@ class POST {
         return $result;
     }
 
+    public function getSpecificCaderneta($id) {
+        $query = "SELECT * FROM caderneta WHERE id = $id;";
+        $result = mysqli_query($this->conn, $query);
+        return mysqli_fetch_array($result);
+    }
+
     public function getLastVenda() {
         $query = "SELECT numero_nota FROM venda ORDER BY numero_nota DESC LIMIT 1";
         $result = mysqli_query($this->conn, $query);
@@ -164,8 +170,8 @@ class POST {
         }
     }
 
-    public function registerCaderneta($cliente, $produto, $qtd, $data, $total, $obs) {
-        $query = "INSERT INTO `caderneta` (`id_cliente`, `nome_produto`, `qtd`, `data`, `total`, `obs`) VALUES ('$cliente', '$produto', '$qtd', '$data', '$total', '$obs');";
+    public function registerCaderneta($cliente, $produto, $nomeProduto, $qtd, $data, $total, $obs) {
+        $query = "INSERT INTO `caderneta` (`id_cliente`, `id_produto`, `nome_produto`, `qtd`, `data`, `total`, `obs`) VALUES ('$cliente', $produto, '$nomeProduto', '$qtd', '$data', '$total', '$obs');";
         return mysqli_query($this->conn, $query);
     }
 
@@ -182,6 +188,11 @@ class POST {
     }
 
     /* edicao */
+
+    public function updateCaderneta($cliente, $produto, $nomeProduto, $qtd, $data, $total, $obs, $id){
+        $query = "UPDATE caderneta SET id_cliente=$cliente, id_produto=$produto, nome_produto='$nomeProduto', qtd=$qtd, data='$data', total=$total, obs='$obs' WHERE id=$id";
+        return mysqli_query($this->conn, $query);
+    }
 }
 
 ?>
