@@ -64,6 +64,12 @@ class POST {
         return $result;
     }
 
+    public function getSpecificCliente($id) {
+        $query = "SELECT * FROM cliente WHERE id = $id;";
+        $result = mysqli_query($this->conn, $query);
+        return mysqli_fetch_array($result);
+    }
+
     public function getProdutos() {
         $query = "SELECT produto.id, produto.nome, produto.preco_venda, produto.foto, fornecedor.razao_social as fornecedor, codigo_barras FROM produto
                 LEFT JOIN fornecedor ON produto.id_fornecedor = fornecedor.id";
@@ -191,6 +197,11 @@ class POST {
 
     public function updateCaderneta($cliente, $produto, $nomeProduto, $qtd, $data, $total, $obs, $id){
         $query = "UPDATE caderneta SET id_cliente=$cliente, id_produto=$produto, nome_produto='$nomeProduto', qtd=$qtd, data='$data', total=$total, obs='$obs' WHERE id=$id";
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function updateCliente($nome, $email, $telefone, $cpf, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf, $id) {
+        $query = "UPDATE `cliente` SET `nome`='$nome',`email`='$email',`telefone`='$telefone',`cpf`='$cpf',`cep`='$cep',`logradouro`='$logradouro',`numero`=$numero,`complemento`='$complemento',`bairro`='$bairro',`cidade`='$cidade',`uf`='$uf' WHERE id=$id";
         return mysqli_query($this->conn, $query);
     }
 }

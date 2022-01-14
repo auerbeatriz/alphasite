@@ -20,7 +20,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
             <?=exibeErros($_SESSION["erros"])?>
     </div><br>
     
-    <form id="cad-cliente"action="cadastro_cliente.php" method="POST">
+    <form id="cad-cliente"action="cadastro_update_cliente.php" method="POST">
               
         <div>
         <p>
@@ -68,13 +68,14 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
         <input class="campo" type="text" name="uf" size="2" maxlength="2" placeholder="XX"> <br>    
         </p>
         </div>
-        <input class="botao" type="submit" name="btn-cad-cli" value="Cadastrar Cliente">
+        <input class="botao" type="submit" name="btn-cli" value="Cadastrar Cliente">
     </form>
 
 <?php
     include_once("footer.php");
 }
 else {
+    
     header("Location: index.php");
 }
 mysqli_close($con);

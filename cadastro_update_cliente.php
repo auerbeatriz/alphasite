@@ -6,9 +6,11 @@ include_once("util.php");
 include_once("post.php");
 
 session_start();
-if(isset($_POST["btn-cad-cli"])) {
+if(isset($_POST["btn-cli"])) {
+    $op = trim($_POST["btn-cli"]);
+
     $erros = array();
-    $post = new Post($con);    
+    $post = new Post($con);
 
     /* sanitização dos campos do formulário */
     
@@ -25,7 +27,7 @@ if(isset($_POST["btn-cad-cli"])) {
     $uf = filter_input(INPUT_POST, "uf",FILTER_SANITIZE_SPECIAL_CHARS);
 
     /* validação dos campos do formulário */
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if(!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erros[] = "<label>O e-mail informado não é válido.</label><br>";
     }
     if(strlen($telefone) < 13) {
@@ -54,15 +56,30 @@ if(isset($_POST["btn-cad-cli"])) {
         header("Location: form_cad_cliente.php");
     }
     else {
-        //  TODO: cadastro do cliente
-        if($post->registerCliente($nome, $email, $telefone, $cpf, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf)) {
-            mysqli_close($con);
-            header("Location: home.php");
-        }
-        else {
-            $erros[] = "Não foi possível cadastrar o cliente. Tente novamente.";
-            $_SESSION["erros"] = $erros;
-            header("Location: form_cad_cliente.php");
+        switch ($op) {
+            case "Cadastrar Cliente":
+                if($post->registerCliente($nome, $email, $telefone, $cpf, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf)) {
+                    mysqli_close($con);
+                    header("Location: consulta_cliente.php");
+                }
+                else {
+                    $erros[] = "Não foi possível cadastrar o cliente. Tente novamente.";
+                    $_SESSION["erros"] = $erros;
+                    header("Location: form_cad_cliente.php");
+                }
+                break;
+            case "Atualizar Registro":
+                $id = $_POST["id"];
+                if($post->updateCliente($nome, $email, $telefone, $cpf, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf, $id)) {
+                    mysqli_close($con);
+                    header("Location: consulta_cliente.php");
+                }
+                else {
+                    $erros[] = "Não foi possível alterar o registro. Tente novamente.";
+                    $_SESSION["erros"] = $erros;
+                    header("Location: update_cliente.php?id=$id&op=leitura");
+                }
+                break;
         }
     }
 }

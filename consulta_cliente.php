@@ -47,7 +47,7 @@ while ($cliente = mysqli_fetch_assoc($clientes)) {
             <td class='col'>".utf8_encode($cliente['email'])."</td>
             <td class='col'>".$cliente['telefone']."</td>
             <td class='col'>$endereco</td>
-            <td class='col'> <label class='editar'>editar</label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=cliente'>excluir</a></label> </td>
+            <td class='col'> <label class='editar'><a href='update_cliente.php?id=$id&op=leitura'>editar</a></label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=cliente'>excluir</a></label> </td>
         </tr>";
 
     }

@@ -67,7 +67,7 @@ if(isset($_POST["btn-cad"])) {
                     else {
                         $erros[] = "Não foi possível alterar o registro. Tente novamente.";
                         $_SESSION["erros"] = $erros;
-                        header("Location: form_cad_caderneta.php");
+                        header("Location: update_caderneta.php?id=$id&op=leitura");
                     }
                     break;
             }
