@@ -5,7 +5,9 @@ include_once("post.php");
 
 session_start();
 
-if(isset($_POST["btn-cad-forn"])) {
+if(isset($_POST["btn-forn"])) {
+    $op = trim($_POST["btn-forn"]);
+
     $erros = array();
     $post = new Post($con);    
 
@@ -51,15 +53,32 @@ if(isset($_POST["btn-cad-forn"])) {
         header("Location: form_cad_fornecedor.php");
     }
     else {
-        //  TODO: cadastro da empresa
-        if($post->registerFornecedor($razaoSocial, $cnpj, $email, $telefone, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf)) {
-            mysqli_close($con);
-            header("Location: home.php");
-        }
-        else {
-            $erros[] = "Não foi possível cadastrar o fornecedor. Tente novamente.";
-            $_SESSION["erros"] = $erros;
-            header("Location: form_cad_fornecedor.php");
+        echo "oi";
+        switch ($op) {
+            case "Cadastrar Fornecedor":
+                if($post->registerFornecedor($razaoSocial, $cnpj, $email, $telefone, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf)) {
+                    mysqli_close($con);
+                    header("Location: consulta_fornecedor.php");
+                }
+                else {
+                    $erros[] = "Não foi possível cadastrar o fornecedor. Tente novamente.";
+                    $_SESSION["erros"] = $erros;
+                    header("Location: form_cad_fornecedor.php");
+                }
+                break;
+            case "Atualizar Registro":
+                
+                $id = $_POST["id"];
+                if($post->updateFornecedor($razaoSocial, $cnpj, $email, $telefone, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf, $id)) {
+                    mysqli_close($con);
+                    header("Location: consulta_fornecedor.php");
+                }
+                else {
+                    $erros[] = "Não foi possível alterar o registro. Tente novamente.";
+                    $_SESSION["erros"] = $erros;
+                    header("Location: update_fornecedor.php?id=$id&op=leitura");
+                }
+                break;
         }
     }
     

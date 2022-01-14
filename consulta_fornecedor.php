@@ -51,7 +51,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
             <td class='col'>".utf8_encode($fornecedor['email'])."</td>
             <td class='col'>".$fornecedor['telefone']."</td>
             <td class='col'>$endereco</td>
-            <td class='col'> <label class='editar'>editar</label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=fornecedor'>excluir</a></label> </td>
+            <td class='col'> <label class='editar'> <a href='update_fornecedor.php?id=$id&op=leitura'>editar</a> </label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=fornecedor'>excluir</a></label> </td>
         </tr>";
 
     }

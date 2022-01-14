@@ -58,6 +58,12 @@ class POST {
         return $result;
     }
 
+    public function getSpecificFornecedor($id){
+        $query = "SELECT * FROM fornecedor WHERE id = $id;";
+        $result = mysqli_query($this->conn, $query);
+        return mysqli_fetch_array($result);
+    }
+
     public function getClientes() {
         $query = "SELECT * FROM cliente";
         $result = mysqli_query($this->conn, $query);
@@ -202,6 +208,11 @@ class POST {
 
     public function updateCliente($nome, $email, $telefone, $cpf, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf, $id) {
         $query = "UPDATE `cliente` SET `nome`='$nome',`email`='$email',`telefone`='$telefone',`cpf`='$cpf',`cep`='$cep',`logradouro`='$logradouro',`numero`=$numero,`complemento`='$complemento',`bairro`='$bairro',`cidade`='$cidade',`uf`='$uf' WHERE id=$id";
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function updateFornecedor($razaoSocial, $cnpj, $email, $telefone, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf, $id) {
+        $query = "UPDATE `fornecedor` SET `razao_social`='$razaoSocial',`cnpj`='$cnpj',`cep`='$cep',`logradouro`='logradouro',`numero`=$numero,`complemento`='$complemento',`bairro`='$bairro',`cidade`='$cidade',`uf`='$uf',`email`='$email',`telefone`='$telefone' WHERE id=$id";
         return mysqli_query($this->conn, $query);
     }
 }
