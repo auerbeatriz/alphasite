@@ -7,9 +7,28 @@ session_start();
 $post = new Post($con);
 $nome = $post->getAdmName($_SESSION["id"]);
 
-require_once("headerA.php"); ?>
+require_once("headerA.php"); 
+
+if(isset($_SESSION["success"]) && $_SESSION["success"]) {
+    echo "<script type='text/javascript'> alert('Cliente cadastrado com sucesso!') </script>";
+    unset($_SESSION["success"]);
+}
+
+?>
 
 <h1> Clientes </h1>
+
+<form action="" method="post" class="busca">
+        <label for="busca_nome">Nome:</label>
+        <input type="search" id="busca_nome" name="nome">
+
+        <label for="busca_cpf">CPF:</label>
+        <input type="search" id="busca_cpf" name="cpf">
+
+        <input type="submit" name="filtragem" value="Filtrar"></input>
+</form>
+<br>
+
 <table class="consulta">
     <tr>
         <th class='col'>NOME</th>
@@ -22,9 +41,16 @@ require_once("headerA.php"); ?>
 
 <?php
 
-$clientes = $post->getClientes();
+if(isset($_POST["filtragem"])) {
+    $nome = $_POST["nome"];
+    $cpf = $_POST["cpf"];
+    $clientes = $post->getClientesInFilter($nome, $cpf);
+} else {
+    $clientes = $post->getClientes();
+}
+
 while ($cliente = mysqli_fetch_assoc($clientes)) {
-    
+
     $id = $cliente["id"];
     $nome = utf8_encode(strtoupper(filter_var($cliente["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
     $logradouro = utf8_encode(filter_var($cliente["logradouro"], FILTER_SANITIZE_SPECIAL_CHARS));

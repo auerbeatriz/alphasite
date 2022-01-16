@@ -29,22 +29,32 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
 
     /* formulário para criar um novo adm */
 
+    $id = null;
+    $nome = null;
+    $login = null;
+    if(isset($_REQUEST["editar"])) {
+        $id = $_REQUEST["id"];
+        $nome = $_REQUEST["nome"];
+        $login = $_REQUEST["login"];
+    }
+
 ?>
-   <h2>Adicionar novo administrador do sistema</h2>
+   <h2>Adicionar/Editar administrador do sistema</h2>
 
    <div class="erros">
         <?=exibeErros($_SESSION["erros"])?>
     </div><br>
 
    <form action="cadastro_adm.php" class="cad" method="POST">
-    <div class = table>
+   <input type='hidden' name='id' value='<?=$id?>'>
+    <div>
     <p>
        <label for="nome">Nome: </label>
-       <input class="campo" type="text" name="nome"></br>
+       <input class="campo" type="text" name="nome" value="<?=$nome?>"></br>
     </p>
     <p>
        <label for="login">Login: </label>
-       <input class="campo" type="text" name="login"></br>
+       <input class="campo" type="text" name="login" value="<?=$login?>"></br>
     </p>
     <p>
        <label for="nome">Senha: </label>

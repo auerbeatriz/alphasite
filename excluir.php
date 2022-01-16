@@ -11,7 +11,14 @@ if(isset($_GET["op"]) && isset($_GET["id"])) {
     $result = $post->exclude($_GET["campo"], $_GET["id"], $_GET["op"]);
     
     $pg = "Location: consulta_".$_GET["op"].".php";
-    header($pg);
+    if(file_exists($pg)) {
+        header($pg);
+    }
+    else {
+        $anterior = $_SERVER['HTTP_REFERER'];
+        header("Location: $anterior");
+    }
+    
 }
 else {
     $anterior = $_SERVER['HTTP_REFERER'];

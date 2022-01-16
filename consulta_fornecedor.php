@@ -12,9 +12,28 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
     $post = new Post($con);
     $nome = $post->getAdmName($_SESSION["id"]);
 
-    require_once("headerA.php");?>
+    require_once("headerA.php");
+    
+    if(isset($_SESSION["success"]) && $_SESSION["success"]) {
+        echo "<script type='text/javascript'> alert('Fornecedor cadastrado com sucesso!') </script>";
+        unset($_SESSION["success"]);
+    }
+    
+    ?>
 
     <h1> Fornecedores </h1>
+
+    <form action="" method="post" class="busca">
+        <label for="busca_razao_social">Razão social:</label>
+        <input type="search" id="busca_razao_social" name="razao_social">
+
+        <label for="busca_cnpj">CNPJ:</label>
+        <input type="search" id="busca_cnpj" name="cnpj">
+
+        <input type="submit" name="filtragem" value="Filtrar"></input>
+    </form>
+    <br>
+
     <table class="consulta">
         <tr>
             <th class='col'>RAZÃO SOCIAL</th>
@@ -26,7 +45,14 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
     </tr>
 
     <?php
-    $fornecedores = $post->getFornecedores();
+    if(isset($_POST["filtragem"])) {
+        $razaoSocial = $_POST["razao_social"];
+        $cnpj = $_POST["cnpj"];
+        $fornecedores = $post->getFornecedoresInFilter($razaoSocial, $cnpj);
+    } else {
+        $fornecedores = $post->getFornecedores();
+    }
+    
     while ($fornecedor = mysqli_fetch_assoc($fornecedores)) {
         
         $id = $fornecedor["id"];

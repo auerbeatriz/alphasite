@@ -14,6 +14,12 @@ class POST {
         return (mysqli_num_rows($result) > 0);
     }
 
+    public function admIsRegistered($id) {
+        $query = "SELECT id FROM administradores WHERE id = '" . $id . "'";
+        $result = mysqli_query($this->conn, $query) or die(mysqli_error($this->conn));
+        return (mysqli_num_rows($result) > 0);
+    }
+
     public function passwordIsCorrect($adm, $password) {
         $query = "SELECT * FROM administradores WHERE login = '" . $adm . "' AND senha = '" . $password . "'";
         $result = mysqli_query($this->conn, $query);
@@ -47,7 +53,7 @@ class POST {
     }
 
     public function getAdms() {
-        $query = "SELECT nome, login FROM administradores;";
+        $query = "SELECT id, nome, login FROM administradores;";
         $result = mysqli_query($this->conn, $query);
         return $result;
     }
@@ -89,6 +95,12 @@ class POST {
         return mysqli_fetch_array($result)["nome"];
     }
 
+    public function getSpecificProduto($id) {
+        $query = "SELECT * FROM produto WHERE id = $id;";
+        $result = mysqli_query($this->conn, $query);
+        return mysqli_fetch_array($result);
+    }
+
     public function getCaderneta() {
         $query = "SELECT caderneta.id, cliente.nome as cliente, caderneta.nome_produto as produto, qtd, total, obs, data FROM caderneta
         LEFT JOIN cliente ON caderneta.id_cliente = cliente.id;";
@@ -115,6 +127,12 @@ class POST {
         ORDER BY data DESC;";
         $result = mysqli_query($this->conn, $query);
         return $result;
+    }
+
+    public function getSpecificVenda($id) {
+        $query = "SELECT * FROM venda WHERE numero_nota = $id;";
+        $result = mysqli_query($this->conn, $query);
+        return mysqli_fetch_array($result);
     }
 
     public function getProdutosVenda($numeroNota) {
@@ -215,6 +233,198 @@ class POST {
         $query = "UPDATE `fornecedor` SET `razao_social`='$razaoSocial',`cnpj`='$cnpj',`cep`='$cep',`logradouro`='logradouro',`numero`=$numero,`complemento`='$complemento',`bairro`='$bairro',`cidade`='$cidade',`uf`='$uf',`email`='$email',`telefone`='$telefone' WHERE id=$id";
         return mysqli_query($this->conn, $query);
     }
+
+    public function updateProduto($codigo, $nome, $preco, $foto, $fornecedor, $id) {
+        $query = "UPDATE `produto` SET `codigo_barras`='$codigo',`nome`='$nome',`preco_venda`=$preco,`foto`='$foto',`id_fornecedor`=$fornecedor WHERE id=$id;";
+        return mysqli_query($this->conn, $query);
+    }
+
+    public function updateAdm($id, $nome, $login, $senha) {
+        $query = "UPDATE `administradores` SET `nome`='$nome',`login`='$login',`senha`='$senha' WHERE id=$id;";
+        return mysqli_query($this->conn, $query);
+    }
+
+    /* filtragem */
+
+    public function getFornecedoresInFilter($razaoSocial, $cnpj) {
+        if(empty($razaoSocial) && !empty($cnpj)) {
+            $query = "SELECT * FROM fornecedor WHERE cnpj='$cnpj';";
+        }
+        elseif(empty($cnpj)  && !empty($razaoSocial)) {
+            $query = "SELECT * FROM fornecedor WHERE razao_social LIKE '%$razaoSocial%';";
+        }
+        elseif(!empty($cnpj)  && !empty($razaoSocial)) {
+            $query = "SELECT * FROM fornecedor WHERE razao_social LIKE '%$razaoSocial%' and cnpj=$cnpj;";
+        }
+        else {
+            $query = "SELECT * FROM fornecedor;";
+        }
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
+
+    public function getClientesInFilter($nome, $cpf) {
+        if(empty($nome) && !empty($cpf)) {
+            $query = "SELECT * FROM cliente WHERE cpf='$cpf';";
+        }
+        elseif(empty($cpf)  && !empty($nome)) {
+            $query = "SELECT * FROM cliente WHERE nome LIKE '%$nome%';";
+        }
+        elseif(!empty($nome)  && !empty($cpf)) {
+            $query = "SELECT * FROM cliente WHERE nome LIKE '%$nome%' AND cpf='$cpf';";
+        }
+        else {
+            $query = "SELECT * FROM cliente;";
+        }
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
+
+    public function getProdutosInFilter($nome, $codigo, $fornecedor) {
+        //apenas fornecedor
+        if(empty($nome) && empty($codigo) && !empty($fornecedor)) {
+            $query = "SELECT produto.id, codigo_barras, nome, preco_venda, foto, fornecedor.razao_social as fornecedor FROM produto
+            INNER JOIN fornecedor ON produto.id_fornecedor = fornecedor.id
+            WHERE fornecedor.razao_social LIKE '%$fornecedor%';";
+        }
+        //apenas nome
+        elseif(empty($codigo)  && empty($fornecedor) && !empty($nome)) {
+            $query = "SELECT produto.id, codigo_barras, nome, preco_venda, foto, fornecedor.razao_social as fornecedor FROM produto
+            INNER JOIN fornecedor ON produto.id_fornecedor = fornecedor.id
+            WHERE nome LIKE '%$nome%';";
+        }
+        //apenas o codigo
+        elseif(empty($nome)  && empty($fornecedor) && !empty($codigo)) {
+            $query = "SELECT produto.id, codigo_barras, nome, preco_venda, foto, fornecedor.razao_social as fornecedor FROM produto
+            LEFT JOIN fornecedor ON produto.id_fornecedor = fornecedor.id
+            WHERE codigo_barras='$codigo';";
+        }
+        //apenas fornecedor e codigo
+        elseif(empty($nome)  && !empty($fornecedor) && !empty($codigo)) {
+            $query = "SELECT produto.id, codigo_barras, nome, preco_venda, foto, fornecedor.razao_social as fornecedor FROM produto
+            INNER JOIN fornecedor ON produto.id_fornecedor = fornecedor.id
+            WHERE fornecedor.razao_social LIKE '%$fornecedor%'
+            AND codigo_barras='$codigo';";
+        }
+        //apenas nome e codigo
+        elseif(empty($fornecedor)  && !empty($nome) && !empty($codigo)) {
+            $query = "SELECT produto.id, codigo_barras, nome, preco_venda, foto, fornecedor.razao_social as fornecedor FROM produto
+            LEFT JOIN fornecedor ON produto.id_fornecedor = fornecedor.id
+            WHERE nome LIKE '%$nome%'
+            AND codigo_barras='$codigo';";
+        }
+        //apenas nome e fornecedor
+        elseif(empty($codigo)  && !empty($fornecedor) && !empty($nome)) {
+            $query = "SELECT produto.id, codigo_barras, nome, preco_venda, foto, fornecedor.razao_social as fornecedor FROM produto
+            INNER JOIN fornecedor ON produto.id_fornecedor = fornecedor.id
+            WHERE fornecedor.razao_social LIKE '%$fornecedor%'
+            AND nome LIKE '%$nome%';";
+        }
+        //todos
+        elseif(!empty($codigo)  && !empty($fornecedor) && !empty($nome)) {
+            $query = "SELECT produto.id, codigo_barras, nome, preco_venda, foto, fornecedor.razao_social as fornecedor FROM produto
+            INNER JOIN fornecedor ON produto.id_fornecedor = fornecedor.id
+            WHERE fornecedor.razao_social LIKE '%$fornecedor%'
+            AND nome LIKE '%$nome%'
+            AND codigo_barras='$codigo';";
+        }
+        else {
+            $query = "SELECT produto.id, produto.nome, produto.preco_venda, produto.foto, fornecedor.razao_social as fornecedor, codigo_barras FROM produto
+            LEFT JOIN fornecedor ON produto.id_fornecedor = fornecedor.id";
+        }
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
+
+    public function getVendasInFilter($nota, $cliente, $data) {
+        //apenas nota
+        if(empty($cliente) && empty($data) && !empty($nota)) {
+            $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
+            LEFT JOIN cliente ON venda.id_cliente = cliente.id
+            WHERE numero_nota=$nota
+            ORDER BY data DESC;";
+        }
+        //apenas cliente
+        elseif(empty($nota)  && empty($data) && !empty($cliente)) {
+            $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
+            INNER JOIN cliente ON venda.id_cliente = cliente.id
+            WHERE cliente.nome LIKE '%$cliente%'
+            ORDER BY data DESC;";
+        }
+        //apenas data
+        elseif(empty($nota)  && empty($cliente) && !empty($data)) {
+            $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
+            LEFT JOIN cliente ON venda.id_cliente = cliente.id
+            WHERE data='$data'
+            ORDER BY data DESC;";
+        }
+        //apenas nota e cliente
+        elseif(empty($data)  && !empty($nota) && !empty($cliente)) {
+            $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
+            INNER JOIN cliente ON venda.id_cliente = cliente.id
+            WHERE cliente.nome LIKE '%$cliente%'
+            AND numero_nota=$nota
+            ORDER BY data DESC;";
+        }
+        //apenas nota e data
+        elseif(empty($cliente)  && !empty($nota) && !empty($data)) {
+            $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
+            LEFT JOIN cliente ON venda.id_cliente = cliente.id
+            WHERE numero_nota=$nota
+            AND data='$data'
+            ORDER BY data DESC;";
+        }
+        //apenas cliente e data
+        elseif(empty($nota)  && !empty($cliente) && !empty($data)) {
+            $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
+            INNER JOIN cliente ON venda.id_cliente = cliente.id
+            WHERE cliente.nome LIKE '%$cliente%'
+            AND data='$data'
+            ORDER BY data DESC;";
+        }
+        //todos
+        elseif(!empty($nota)  && !empty($cliente) && !empty($data)) {
+            $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
+            INNER JOIN cliente ON venda.id_cliente = cliente.id
+            WHERE cliente.nome LIKE '%$cliente%'
+            AND numero_nota=$nota
+            AND data='$data'
+            ORDER BY data DESC;";
+        }
+        else {
+            $query = "SELECT numero_nota, data, cliente.nome as cliente, total, obs FROM venda 
+            LEFT JOIN cliente on venda.id_cliente = cliente.id
+            ORDER BY data DESC;";
+        }
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
+
+    public function getCadernetaInFilter($cliente, $data) {
+        if(empty($cliente) && !empty($data)) {
+            $query = "SELECT caderneta.id, cliente.nome as cliente, caderneta.nome_produto as produto, qtd, total, obs, data FROM caderneta
+            LEFT JOIN cliente ON caderneta.id_cliente = cliente.id
+            WHERE data='$data';";
+        }
+        elseif(empty($data)  && !empty($cliente)) {
+            $query = "SELECT caderneta.id, cliente.nome as cliente, caderneta.nome_produto as produto, qtd, total, obs, data FROM caderneta
+            INNER JOIN cliente ON caderneta.id_cliente = cliente.id
+            WHERE cliente.nome LIKE '%$cliente%';";
+        }
+        elseif(!empty($cliente)  && !empty($data)) {
+            $query = "SELECT caderneta.id, cliente.nome as cliente, caderneta.nome_produto as produto, qtd, total, obs, data FROM caderneta
+            INNER JOIN cliente ON caderneta.id_cliente = cliente.id
+            WHERE cliente.nome LIKE '%$cliente%'
+            AND data='$data';";
+        }
+        else {
+            $query = "SELECT caderneta.id, cliente.nome as cliente, caderneta.nome_produto as produto, qtd, total, obs, data FROM caderneta
+            LEFT JOIN cliente ON caderneta.id_cliente = cliente.id;";
+        }
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
+
 }
 
 ?>

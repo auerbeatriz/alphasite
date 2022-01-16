@@ -50,6 +50,7 @@ if(isset($_POST["btn-cad-venda"])) {
         if($post->registerVenda($numeroNota, $data, $cliente, $total, $obs, $produtos)) {
             mysqli_close($con);
             unset($_SESSION["cesta"]);
+            $_SESSION["success"] = true;
             header("Location: consulta_venda.php");
         }
         else {

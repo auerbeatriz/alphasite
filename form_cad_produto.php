@@ -20,7 +20,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
             <?=exibeErros($_SESSION["erros"])?>
     </div>
 
-    <form id="cad-produto" action="cadastro_produto.php" enctype="multipart/form-data" method="POST">
+    <form id="cad-produto" action="cadastro_update_produto.php" enctype="multipart/form-data" method="POST">
     <div>
         <p>
         <label for="nome"> Código de barras: </label>
@@ -47,7 +47,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
         <p>
     </div>
 
-        <input class="botao" type="submit" name="btn-cad-produto" value="Cadastrar Produto">
+        <input class="botao" type="submit" name="btn-produto" value="Cadastrar Produto">
     </form>
 
 <?php

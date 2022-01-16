@@ -7,9 +7,28 @@ session_start();
 $post = new Post($con);
 $nome = $post->getAdmName($_SESSION["id"]);
 
-require_once("headerA.php");?>
+require_once("headerA.php");
+
+if(isset($_SESSION["success"]) && $_SESSION["success"]) {
+    echo "<script type='text/javascript'> alert('Registro de caderneta cadastrado com sucesso!') </script>";
+    unset($_SESSION["success"]);
+}
+
+?>
 
 <h1> Registros na caderneta </h1>
+
+<form action="" method="post" class="busca">
+        <label for="busca_cliente">Cliente:</label>
+        <input type="search" id="busca_cliente" name="cliente">
+
+        <label for="busca_data">Data:</label>
+        <input type="date" id="busca_data" name="data">
+
+        <input type="submit" name="filtragem" value="Filtrar"></input>
+</form>
+<br>
+
 <table class="consulta">
     <tr>
         <th class='col'>DATA</th>
@@ -21,7 +40,15 @@ require_once("headerA.php");?>
 </tr>
 
 <?php
-$registros = $post->getCaderneta();
+
+if(isset($_POST["filtragem"])) {
+    $cliente = $_POST["cliente"];
+    $data = $_POST["data"];
+    $registros = $post->getCadernetaInFilter($cliente, $data);
+} else {
+    $registros = $post->getCaderneta();
+}
+
 while ($registro = mysqli_fetch_assoc($registros)) {
     
     $id = $registro["id"];

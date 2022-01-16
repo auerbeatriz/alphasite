@@ -17,7 +17,7 @@ if(isset($_POST["btn-cad"])) {
     $produto = $_POST["produto"]; //id
     $qtd = filter_input(INPUT_POST, "qtd", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $total = filter_input(INPUT_POST, "total", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $obs = filter_input(INPUT_POST, "obs", FILTER_SANITIZE_SPECIAL_CHARS);
+    $obs = utf8_encode(filter_input(INPUT_POST, "obs", FILTER_SANITIZE_SPECIAL_CHARS));
     
     $nomeProduto = $post->getProdutoName($produto);
 
@@ -50,6 +50,7 @@ if(isset($_POST["btn-cad"])) {
                 case "Cadastrar Registro":
                     if($post->registerCaderneta($cliente, $produto, $nomeProduto, $qtd, $data, $total, $obs)) {
                         mysqli_close($con);
+                        $_SESSION["success"] = true;
                         header("Location: consulta_caderneta.php");
                     }
                     else {

@@ -7,6 +7,17 @@ function listFornecedores($post) {
     }
 }
 
+function listFornecedoresForUpdate($post, $id) {
+    $result = $post->getFornecedoresName();
+    foreach ($result as $row) {
+        if($row["id"] == $id) {
+            echo "<option value=".$row['id']." selected='selected'>".$row['id']. " - " . utf8_encode($row["razao_social"])."</option>";
+        } else {
+            echo "<option value=".$row['id'].">".$row['id']. " - " . utf8_encode($row["razao_social"])."</option>";
+        }
+    }
+}
+
 function listClientes($post) {
     $result = $post->getClientsName();
     foreach ($result as $row) {
@@ -50,9 +61,13 @@ function listCesta($cesta) {
 }
 
 function listAdm($adm) {
+    $id = $adm["id"];
+    $nome = $adm["nome"];
+    $login = $adm["login"];
     echo "<tr>
-            <td>".$adm["nome"]."</td>
-            <td>".$adm["login"]."</td>
+            <td>".$nome."</td>
+            <td>".$login."</td>
+            <td> <label class='editar'> <a href='gerenciar_adm.php?id=$id&nome=$nome&login=$login&editar=true'>editar</a> </label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=administradores'>excluir</a></label> </td>
         </tr>";
 }
 
@@ -194,7 +209,7 @@ function maskFunctions() {
 }
 
 function listProdutosForVenda($produto) {
-    $nome = utf8_encode(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $nome = filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS);
     $id = $produto["id"];
     $preco = $produto["preco_venda"];
     $foto = $produto["foto"];
@@ -219,12 +234,12 @@ function listProdutosForVenda($produto) {
 }
 
 function listProdutosForConsulta($produto) {
-    $nome = utf8_encode(filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS));
+    $nome = filter_var($produto["nome"], FILTER_SANITIZE_SPECIAL_CHARS);
     $id = $produto["id"];
     $preco = $produto["preco_venda"];
     $foto = $produto["foto"];
     $codigo_barras = $produto["codigo_barras"];
-    $fornecedor = $produto["fornecedor"];
+    $fornecedor = utf8_encode($produto["fornecedor"]);
 
     echo "  
     <div class='square'>
@@ -235,7 +250,7 @@ function listProdutosForConsulta($produto) {
         </div>
         <label>$codigo_barras</label><br>
         <label><b>Fornecedor:</b> $fornecedor</label><br>
-        <label class='editar'>editar</label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=produto'>excluir</a></label>
+        <label class='editar'> <a href='update_produto.php?id=$id&op=leitura'>editar</a> </label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=produto'>excluir</a></label>
     </div>";
 }
 

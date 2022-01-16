@@ -95,6 +95,14 @@ a:visited {
     text-decoration: none;
 }
 
+form.busca {
+    text-align: left;
+    margin-left: 0.5vw;
+}
+form.busca input {
+    margin-right: 0.6vw;
+}
+
 div.cesta {
     float: left;
     display: inline;

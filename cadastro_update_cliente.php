@@ -60,6 +60,7 @@ if(isset($_POST["btn-cli"])) {
             case "Cadastrar Cliente":
                 if($post->registerCliente($nome, $email, $telefone, $cpf, $cep, $logradouro, $numero, $complemento, $bairro, $cidade, $uf)) {
                     mysqli_close($con);
+                    $_SESSION["success"] = true;
                     header("Location: consulta_cliente.php");
                 }
                 else {

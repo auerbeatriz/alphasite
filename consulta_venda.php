@@ -9,14 +9,44 @@ $nome = $post->getAdmName($_SESSION["id"]);
 
 require_once("headerA.php");
 
-echo "<h1> Registros de vendas </h1>";
+if(isset($_SESSION["success"]) && $_SESSION["success"]) {
+    echo "<script type='text/javascript'> alert('Venda cadastrada com sucesso!') </script>";
+    unset($_SESSION["success"]);
+}
 
-$vendas = $post->getVendas();
+?>
+
+<h1> Registros de vendas </h1>
+
+<form action="" method="post" class="busca">
+    <label for="busca_nota">Número da nota:</label>
+    <input type="search" id="busca_nota" name="nota">
+
+    <label for="busca_codigo">Cliente:</label>
+    <input type="search" id="busca_cliente" name="cliente">
+
+    <label for="busca_data">Data da venda:</label>
+    <input type="date" id="busca_data" name="data">
+
+    <input type="submit" name="filtragem" value="Filtrar"></input>
+</form>
+<br>
+
+<?php
+if(isset($_POST["filtragem"])) {
+    $nota = $_POST["nota"];
+    $cliente = $_POST["cliente"];
+    $data = $_POST["data"];
+    $vendas = $post->getVendasInFilter($nota, $cliente, $data);
+} else {
+    $vendas = $post->getVendas();
+}
+
 while ($venda = mysqli_fetch_assoc($vendas)) {
   
     if(filter_var($venda["numero_nota"], FILTER_VALIDATE_INT)) {
         $numeroNota = $venda["numero_nota"];
-        $obs = utf8_encode(strtoupper(filter_var($venda["obs"], FILTER_SANITIZE_SPECIAL_CHARS)));
+        $obs = strtoupper(filter_var($venda["obs"], FILTER_SANITIZE_SPECIAL_CHARS));
         $data = date_format(date_create($venda["data"]), "d/m/Y");
 
         if(!is_null($venda["cliente"])) {
@@ -27,7 +57,7 @@ while ($venda = mysqli_fetch_assoc($vendas)) {
 
         echo "
         <div class='nota'>
-            <label class='editar'>editar</label> <label class='excluir'> <a href='excluir.php?campo=numero_nota&id=$numeroNota&op=venda'>excluir</a></label><br><br>
+            </label> <label class='excluir'> <a href='excluir.php?campo=numero_nota&id=$numeroNota&op=venda'>excluir</a></label><br><br>
             <label><b>Número da nota:</b> ".$numeroNota."</label> <br>
             <label><b>Data:</b> ".$data."</label><br>
             <label><b>Cliente:</b> ".$cliente."</label><br>
@@ -44,7 +74,7 @@ while ($venda = mysqli_fetch_assoc($vendas)) {
 
         $produtosVenda = $post->getProdutosVenda($numeroNota);
         while ($produto = mysqli_fetch_assoc($produtosVenda)) {
-            $nomeProduto = utf8_encode(filter_var($produto["nome_produto"], FILTER_SANITIZE_SPECIAL_CHARS));
+            $nomeProduto = filter_var($produto["nome_produto"], FILTER_SANITIZE_SPECIAL_CHARS);
             $qtd = $produto["qtd"];
             $preco = number_format($produto["valor_unitario"], 2);
             $total = number_format($qtd * $preco, 2);
@@ -63,7 +93,7 @@ while ($venda = mysqli_fetch_assoc($vendas)) {
     }
     else {
         echo "<div class='nota'>
-        <label class='editar'>editar</label> <label class='excluir'> <a href='excluir.php?id=$numeroNota&op=venda&campo=numero_nota'>excluir</a></label><br>
+        <label class='excluir'> <a href='excluir.php?id=$numeroNota&op=venda&campo=numero_nota'>excluir</a></label><br>
         <label>Foram encontrados dados inválidos para essa nota. Por motivos de segurança, ela não será exibida.</label>
         </div>";
     }
