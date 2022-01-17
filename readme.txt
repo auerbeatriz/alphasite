@@ -5,6 +5,9 @@ Segmento: Sistema extra-simplificado de um hortifrúti - Pomar Hortifrúti
 
 > Todas as entidades possuem cadastro, consulta e excluão
 > Apenas as entidades ADMINISTRADOR, CADERNETA, CLIENTE e PRODUTO permitem a alteração de dados
+> Webservices:
+    consulta_cliente.php -> obtem_clientes.php(webservice)
+    consulta_fornecedor.php -> obtem_fornecedores.php(webservice)
 
 > Usamos máscara para alguns campos do formulário de cadastro de clientes e fornecedores.
   Para isso, utilizamos o plugin para JQuery (Jquery Mask Plugin) desenvolvido por Igor Escobar.

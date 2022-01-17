@@ -48,38 +48,29 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"]) {
     if(isset($_POST["filtragem"])) {
         $razaoSocial = $_POST["razao_social"];
         $cnpj = $_POST["cnpj"];
-        $fornecedores = $post->getFornecedoresInFilter($razaoSocial, $cnpj);
+
+        $url="http://localhost/pomar_hortifruti/obtem_fornecedores.php?razaoSocial=$razaoSocial&cnpj=$cnpj";
+        
     } else {
-        $fornecedores = $post->getFornecedores();
+        $url="http://localhost/pomar_hortifruti/obtem_fornecedores.php";
     }
     
-    while ($fornecedor = mysqli_fetch_assoc($fornecedores)) {
-        
-        $id = $fornecedor["id"];
-        $razaoSocial = utf8_encode(strtoupper(filter_var($fornecedor["razao_social"], FILTER_SANITIZE_SPECIAL_CHARS)));
-        $logradouro = utf8_encode(filter_var($fornecedor["logradouro"], FILTER_SANITIZE_SPECIAL_CHARS));
-        $complemento = utf8_encode(filter_var($fornecedor["complemento"], FILTER_SANITIZE_SPECIAL_CHARS));
-        $bairro = utf8_encode(filter_var($fornecedor["bairro"], FILTER_SANITIZE_SPECIAL_CHARS));
-        $cidade = utf8_encode(filter_var($fornecedor["cidade"], FILTER_SANITIZE_SPECIAL_CHARS));
-        $uf = strtoupper(filter_var($fornecedor["uf"],FILTER_SANITIZE_SPECIAL_CHARS));
+    $result = json_decode(file_get_contents($url));
 
-        $cep =  $fornecedor['cep'];
-        if(filter_var($fornecedor["numero"], FILTER_VALIDATE_INT)) {
-            $numero = $fornecedor["numero"];
-        } else { $numero = "s/n"; }
-
-        $endereco = "Cep: $cep, $logradouro, $numero, $complemento, $bairro - $cidade, $uf";
-        
-        echo "
-        <tr class='linha'>
-            <td class='col'>$razaoSocial</td>
-            <td class='col'>".$fornecedor['cnpj']."</td>
-            <td class='col'>".utf8_encode($fornecedor['email'])."</td>
-            <td class='col'>".$fornecedor['telefone']."</td>
-            <td class='col'>$endereco</td>
-            <td class='col'> <label class='editar'> <a href='update_fornecedor.php?id=$id&op=leitura'>editar</a> </label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=fornecedor'>excluir</a></label> </td>
-        </tr>";
-
+    if($result->success == 1) {
+        foreach($result->fornecedores as $row) {
+            echo "
+            <tr class='linha'>
+                <td class='col'>".$row->razao_social."</td>
+                <td class='col'>".$row->cnpj."</td>
+                <td class='col'>".$row->email."</td>
+                <td class='col'>".$row->telefone."</td>
+                <td class='col'>".$row->endereco."</td>
+                <td class='col'> <label class='editar'> <a href='update_fornecedor.php?id=". $row->id ."&op=leitura'>editar</a> </label> <label class='excluir'><a href='excluir.php?campo=id&id=$row->id&op=fornecedor'>excluir</a></label> </td>
+            </tr>";
+        }
+    } else {
+        echo $result->message;
     }
     ?></table><?php
 

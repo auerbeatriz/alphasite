@@ -40,43 +40,33 @@ if(isset($_SESSION["success"]) && $_SESSION["success"]) {
 </tr>
 
 <?php
-
 if(isset($_POST["filtragem"])) {
     $nome = $_POST["nome"];
     $cpf = $_POST["cpf"];
-    $clientes = $post->getClientesInFilter($nome, $cpf);
+
+    $url="http://localhost/pomar_hortifruti/obtem_clientes.php?nome=$nome&cpf=$cpf";
+    
 } else {
-    $clientes = $post->getClientes();
+    $url="http://localhost/pomar_hortifruti/obtem_clientes.php";
 }
 
-while ($cliente = mysqli_fetch_assoc($clientes)) {
+$result = json_decode(file_get_contents($url));
 
-    $id = $cliente["id"];
-    $nome = utf8_encode(strtoupper(filter_var($cliente["nome"], FILTER_SANITIZE_SPECIAL_CHARS)));
-    $logradouro = utf8_encode(filter_var($cliente["logradouro"], FILTER_SANITIZE_SPECIAL_CHARS));
-    $complemento = utf8_encode(filter_var($cliente["complemento"], FILTER_SANITIZE_SPECIAL_CHARS));
-    $bairro = utf8_encode(filter_var($cliente["bairro"], FILTER_SANITIZE_SPECIAL_CHARS));
-    $cidade = utf8_encode(filter_var($cliente["cidade"], FILTER_SANITIZE_SPECIAL_CHARS));
-    $uf = strtoupper(filter_var($cliente["uf"],FILTER_SANITIZE_SPECIAL_CHARS));
-
-    $cep =  $cliente['cep'];
-    if(filter_var($cliente["numero"], FILTER_VALIDATE_INT)) {
-        $numero = $cliente["numero"];
-    } else { $numero = "s/n"; }
-
-    $endereco = "Cep: $cep, $logradouro, $numero, $complemento, $bairro - $cidade, $uf";
-
-    echo "
+if($result->success == 1) {
+    foreach($result->clientes as $row) {
+        echo "
         <tr class='linha'>
-            <td class='col'>$nome</td>
-            <td class='col'>".$cliente['cpf']."</td>
-            <td class='col'>".utf8_encode($cliente['email'])."</td>
-            <td class='col'>".$cliente['telefone']."</td>
-            <td class='col'>$endereco</td>
-            <td class='col'> <label class='editar'><a href='update_cliente.php?id=$id&op=leitura'>editar</a></label> <label class='excluir'><a href='excluir.php?campo=id&id=$id&op=cliente'>excluir</a></label> </td>
+            <td class='col'>".$row->nome."</td>
+            <td class='col'>".$row->cpf."</td>
+            <td class='col'>".$row->email."</td>
+            <td class='col'>".$row->telefone."</td>
+            <td class='col'>".$row->endereco."</td>
+            <td class='col'> <label class='editar'> <a href='update_cliente.php?id=". $row->id ."&op=leitura'>editar</a> </label> <label class='excluir'><a href='excluir.php?campo=id&id=". $row->id ."&op=cliente'>excluir</a></label> </td>
         </tr>";
-
     }
+} else {
+    echo $result->message;
+}
 ?></table><?php
 
 mysqli_close($con);
