@@ -93,7 +93,7 @@ ALTER TABLE CADERNETA ADD CONSTRAINT FK_CADERNETA_1
     ON DELETE CASCADE;
 
 INSERT INTO `administradores` (`id`, `nome`, `login`, `senha`) VALUES (NULL, 'Beatriz Auer Mariano', 'auerbeatriz', 'e10adc3949ba59abbe56e057f20f883e');
-INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Regina Márcia Monteiro', 'reginamarciamonteiro..reginamarciamonteiro@telefonica.com', '27998899482', '56261291705', '29177238', 'Rua Furnas', '131', NULL, 'Divinópolis', 'Serra', 'ES');
+
 INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Breno Marcos Galvão', 'brenomarcosgalvao..brenomarcosgalvao@triunfante.com.br', '27989898812', '02292230798', '29177168', 'Rua das Orquídeas', '285', NULL, 'Cascata', 'Serra', 'ES');
 INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Daniela Emilly Malu Nascimento', 'ddanielaemillymalunascimento@somma.net.br', '27999241167', '96986767757', '29179160', 'Rua Açariquara', '744', NULL, 'Centro da Serra', 'Serra', 'ES');
 INSERT INTO `cliente` (`id`, `nome`, `email`, `telefone`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `uf`) VALUES (NULL, 'Vera Elza Mendes', 'veraelzamendes..veraelzamendes@gmx.com.br', '27987755339', '52477593706', '29163349', 'Rua Mutum', '958', NULL, 'Novo Horizonte', 'Serra', 'ES');
